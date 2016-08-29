@@ -202,6 +202,10 @@
     <string name="simulation_5_years_average">5 שנים אחרונות</string>
     <string name="simulation_details">מילוי פרטי הסימולציה</string>
     <string name="simulation_calculate">חשב</string>
+    <string name="prime_change">שינוי בפריים</string>
+    <string name="interest_change">שינוי בריבית משתנה</string>
+    <string name="price_change">שינוי במדד מחירים לצרכן</string>
+    <string name="max_interest">ריבית מקסימלית</string>
 
     <!--simulation compare-->
     <string name="simulation_compare_offers">הצעות</string>

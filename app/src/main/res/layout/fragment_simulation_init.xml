@@ -90,7 +90,7 @@
 
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text="@string/form_text3"
+                android:text="@string/prime_change"
 
                 />
 
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:gravity="right|center"
             android:orientation="horizontal"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="20dp">
 
 
             <FrameLayout
@@ -149,7 +149,7 @@
 
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text="@string/form_text3"
+                android:text="@string/interest_change"
 
                 />
 
@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:gravity="right|center"
             android:orientation="horizontal"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="20dp">
 
 
             <FrameLayout
@@ -210,7 +210,66 @@
 
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text="@string/form_text3"
+                android:text="@string/price_change"
+
+                />
+
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+
+            <FrameLayout
+                android:id="@+id/simulation_init_max_btn"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:background="@drawable/blue_button"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:id="@+id/simulation_init_max_txt"
+                    style="@style/style_white_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="7" />
+
+            </FrameLayout>
+
+
+
+
+            <EditText
+                android:id="@+id/simulation_init_max_edit"
+                style="@style/style_blue_text"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawableEnd="@drawable/percent"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:text="2"
+                android:layout_marginRight="40dp"
+                />
+
+
+            <TextView
+                style="@style/style_black_text_bold"
+
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="@string/max_interest"
 
                 />
 
