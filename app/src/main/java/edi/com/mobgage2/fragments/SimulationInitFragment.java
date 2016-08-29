@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import edi.com.mobgage2.R;
 import edi.com.mobgage2.activities.MobgageMainActivity;
+import edi.com.mobgage2.managers.DataManager;
 
 
 public class SimulationInitFragment extends Fragment {
@@ -97,7 +98,12 @@ public class SimulationInitFragment extends Fragment {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DataManager.getInstance().getProposalByProposalID()
+                DataManager manager = DataManager.getInstance();
+                manager.setBankIsraelAnnualGrowth(Double.parseDouble(primeEdt.getText().toString()));
+                manager.setFixedInterestAnnualGrowth(Double.parseDouble(changingEdt.getText().toString()));
+                manager.setIndexAnnualGrowth(Double.parseDouble(IndexEdt.getText().toString()));
+                manager.setCapInterest(Double.parseDouble(maxEdt.getText().toString()));
+
                 ((MobgageMainActivity) (getActivity())).showScreen(MobgageMainActivity.SCREEN_USER_SIMULATION_COMPARE, true, null);
             }
         });

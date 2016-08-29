@@ -9,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import edi.com.mobgage2.R;
 import edi.com.mobgage2.data.Proposal;
+import edi.com.mobgage2.data.SimulationRow;
 import edi.com.mobgage2.managers.DataManager;
 
 
@@ -73,9 +76,25 @@ public class SimulationSingleFragment extends Fragment {
         private Proposal proposal;
         private String proposalId;
 
+        private double big;
+        private double fig;
+        private double ig;
+        private double cap;
+
+        private List<SimulationRow> rows;
+
         public SimulationSingleAdapter(String proposalId) {
             this.proposalId = proposalId;
             this.proposal = DataManager.getInstance().getProposalByProposalID(this.proposalId);
+
+            DataManager manager = DataManager.getInstance();
+            big = manager.getBankIsraelAnnualGrowth();
+            fig = manager.getFixedInterestAnnualGrowth();
+            ig = manager.getIndexAnnualGrowth();
+            cap = manager.getCapInterest();
+
+            rows = new ArrayList<>();
+
         }
 
         @Override
@@ -104,6 +123,8 @@ public class SimulationSingleFragment extends Fragment {
 
 //            holder.date.setText(position + "");
             holder.date.setText(month + "/" + year);
+
+            SimulationRow row = rows.get(position);
         }
 
         @Override

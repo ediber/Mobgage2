@@ -59,7 +59,13 @@ public class DataManager
 	
 	private int bankImages[] = {R.drawable.bank8, R.drawable.bank7, R.drawable.bank6, R.drawable.bank1,
 			                    R.drawable.bank5, R.drawable.bank4, R.drawable.bank3, R.drawable.bank2};
-	
+
+    // simulation
+    private double bankIsraelAnnualGrowth;
+    private double fixedInterestAnnualGrowth;
+    private double indexAnnualGrowth;
+    private double capInterest;
+
 
 	private static DataManager instance;
 
@@ -717,4 +723,38 @@ public class DataManager
 			}
 		}
 	}
+
+
+    // simulation
+    public double getBankIsraelAnnualGrowth() {
+        return bankIsraelAnnualGrowth;
+    }
+
+    public void setBankIsraelAnnualGrowth(double bankIsraelAnnualGrowth) {
+        this.bankIsraelAnnualGrowth = bankIsraelAnnualGrowth;
+    }
+
+    public double getFixedInterestAnnualGrowth() {
+        return fixedInterestAnnualGrowth;
+    }
+
+    public void setFixedInterestAnnualGrowth(double fixedInterestAnnualGrowth) {
+        this.fixedInterestAnnualGrowth = fixedInterestAnnualGrowth;
+    }
+
+    public double getIndexAnnualGrowth() {
+        return indexAnnualGrowth;
+    }
+
+    public void setIndexAnnualGrowth(double indexAnnualGrowth) {
+        this.indexAnnualGrowth = indexAnnualGrowth;
+    }
+
+    public double getCapInterest() {
+        return capInterest;
+    }
+
+    public void setCapInterest(double capInterest) {
+        this.capInterest = capInterest;
+    }
 }
