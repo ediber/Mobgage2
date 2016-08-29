@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="right">
+
+    <TextView
+        style="@style/style_black_text_medium_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="interest"
+        android:layout_marginRight="30dp"
+        android:id="@+id/single_row_interest"
+        android:layout_marginLeft="60dp" />
+
+    <TextView
+        style="@style/style_black_text_medium_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="left"
+        android:layout_marginRight="30dp"
+        android:id="@+id/single_row_left" />
+
+    <TextView
+        style="@style/style_black_text_medium_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="return"
+        android:layout_marginRight="30dp"
+        android:id="@+id/single_row_month_return" />
+
+    <TextView
+        style="@style/style_black_text_medium_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        android:id="@+id/single_row_date" />
+
+</LinearLayout>
