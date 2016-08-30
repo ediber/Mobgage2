@@ -3,7 +3,6 @@ package edi.com.mobgage2.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import java.util.List;
 
 import edi.com.mobgage2.R;
 import edi.com.mobgage2.data.Proposal;
+import edi.com.mobgage2.data.SimulationDetails;
 import edi.com.mobgage2.data.SimulationRow;
 import edi.com.mobgage2.managers.DataManager;
 
@@ -87,11 +87,11 @@ public class SimulationSingleFragment extends Fragment {
             this.proposalId = proposalId;
             this.proposal = DataManager.getInstance().getProposalByProposalID(this.proposalId);
 
-            DataManager manager = DataManager.getInstance();
-            big = manager.getBankIsraelAnnualGrowth();
-            fig = manager.getFixedInterestAnnualGrowth();
-            ig = manager.getIndexAnnualGrowth();
-            cap = manager.getCapInterest();
+            SimulationDetails simulationDetails = DataManager.getInstance().getSimulationDetails();
+            big = simulationDetails.getBankIsraelAnnualGrowth();
+            fig = simulationDetails.getFixedInterestAnnualGrowth();
+            ig = simulationDetails.getIndexAnnualGrowth();
+            cap = simulationDetails.getCapInterest();
 
             rows = new ArrayList<>();
 
@@ -111,20 +111,18 @@ public class SimulationSingleFragment extends Fragment {
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
 
-            Log.d("-edi-", "year " + year);
-            Log.d("-edi-", "month " + month);
-
             year = year + (month + position) / 12;
             month = ((month + position) % 12) + 1;
 
-            Log.d("-edi-", "year after" + year);
-            Log.d("-edi-", "month after" + month);
-
-
-//            holder.date.setText(position + "");
             holder.date.setText(month + "/" + year);
 
-            SimulationRow row = rows.get(position);
+            if(rows.size() > 0){
+                SimulationRow row = rows.get(position);
+                int INm = 0;
+                int YE = 0;
+                int LP0 = 0;
+                int payment = ((INm/12*(1+INm/12)^YE*12)/((1+INm/12)^YE-1))*LP0;
+            }
         }
 
         @Override

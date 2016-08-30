@@ -25,6 +25,7 @@ import edi.com.mobgage2.data.Bank;
 import edi.com.mobgage2.data.Proposal;
 import edi.com.mobgage2.data.Route;
 import edi.com.mobgage2.data.RouteKind;
+import edi.com.mobgage2.data.SimulationDetails;
 import edi.com.mobgage2.data.Types.RouteKinds;
 import edi.com.mobgage2.data.UserDetails;
 import edi.com.mobgage2.interfaces.IFinishCallback;
@@ -60,11 +61,8 @@ public class DataManager
 	private int bankImages[] = {R.drawable.bank8, R.drawable.bank7, R.drawable.bank6, R.drawable.bank1,
 			                    R.drawable.bank5, R.drawable.bank4, R.drawable.bank3, R.drawable.bank2};
 
-    // simulation
-    private double bankIsraelAnnualGrowth;
-    private double fixedInterestAnnualGrowth;
-    private double indexAnnualGrowth;
-    private double capInterest;
+	private SimulationDetails simulationDetails;
+
 
 
 	private static DataManager instance;
@@ -498,8 +496,8 @@ public class DataManager
 		int routeNum = ((proposal.getRoutes().get(proposal.getRoutes().size()-1)).routeNum) + 1;
 		return (new Route(proposal.userID, proposal.proposalID, routeNum, 0, 0, 0, 0, 0, routeKind, 0));
 	}
-	
-	
+
+
 	public int getProposalPositionByID(String proposalID)
 	{
 		ArrayList<Proposal> proposalsList = new ArrayList<Proposal>(proposals.values());
@@ -724,37 +722,11 @@ public class DataManager
 		}
 	}
 
-
-    // simulation
-    public double getBankIsraelAnnualGrowth() {
-        return bankIsraelAnnualGrowth;
+    public SimulationDetails getSimulationDetails() {
+        return simulationDetails;
     }
 
-    public void setBankIsraelAnnualGrowth(double bankIsraelAnnualGrowth) {
-        this.bankIsraelAnnualGrowth = bankIsraelAnnualGrowth;
-    }
-
-    public double getFixedInterestAnnualGrowth() {
-        return fixedInterestAnnualGrowth;
-    }
-
-    public void setFixedInterestAnnualGrowth(double fixedInterestAnnualGrowth) {
-        this.fixedInterestAnnualGrowth = fixedInterestAnnualGrowth;
-    }
-
-    public double getIndexAnnualGrowth() {
-        return indexAnnualGrowth;
-    }
-
-    public void setIndexAnnualGrowth(double indexAnnualGrowth) {
-        this.indexAnnualGrowth = indexAnnualGrowth;
-    }
-
-    public double getCapInterest() {
-        return capInterest;
-    }
-
-    public void setCapInterest(double capInterest) {
-        this.capInterest = capInterest;
+    public void setSimulationDetails(SimulationDetails simulationDetails) {
+        this.simulationDetails = simulationDetails;
     }
 }

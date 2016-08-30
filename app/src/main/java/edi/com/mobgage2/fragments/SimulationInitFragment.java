@@ -99,10 +99,10 @@ public class SimulationInitFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DataManager manager = DataManager.getInstance();
-                manager.setBankIsraelAnnualGrowth(Double.parseDouble(primeEdt.getText().toString()));
-                manager.setFixedInterestAnnualGrowth(Double.parseDouble(changingEdt.getText().toString()));
-                manager.setIndexAnnualGrowth(Double.parseDouble(IndexEdt.getText().toString()));
-                manager.setCapInterest(Double.parseDouble(maxEdt.getText().toString()));
+                manager.getSimulationDetails().setBankIsraelAnnualGrowth(Double.parseDouble(primeEdt.getText().toString()));
+                manager.getSimulationDetails().setFixedInterestAnnualGrowth(Double.parseDouble(changingEdt.getText().toString()));
+                manager.getSimulationDetails().setIndexAnnualGrowth(Double.parseDouble(IndexEdt.getText().toString()));
+                manager.getSimulationDetails().setCapInterest(Double.parseDouble(maxEdt.getText().toString()));
 
                 ((MobgageMainActivity) (getActivity())).showScreen(MobgageMainActivity.SCREEN_USER_SIMULATION_COMPARE, true, null);
             }
