@@ -61,7 +61,7 @@ public class DataManager
 	private int bankImages[] = {R.drawable.bank8, R.drawable.bank7, R.drawable.bank6, R.drawable.bank1,
 			                    R.drawable.bank5, R.drawable.bank4, R.drawable.bank3, R.drawable.bank2};
 
-	private SimulationDetails simulationDetails;
+	private SimulationDetails simulationDetails = new SimulationDetails();
 
 
 

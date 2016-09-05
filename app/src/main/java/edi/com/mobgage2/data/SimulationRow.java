@@ -49,4 +49,25 @@ public class SimulationRow {
     public void setPrincipal(double principal) {
         this.principal = principal;
     }
+
+
+    public void addLoanBalance(double num){
+        loanBalance += num;
+    }
+
+    public void addAnnualLoanInterestPerMonth(double num){
+        annualLoanInterestPerMonth += num;
+    }
+
+    public void addPayment(double num){
+        payment += num;
+    }
+
+    public void addInterest(double num){
+        interest += num;
+    }
+
+    public void addPrincipal(double num){
+        principal += num;
+    }
 }
