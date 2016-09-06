@@ -19,7 +19,7 @@ public class SimulationInitFragment extends Fragment {
     private View primeBtn;
     private View changingBtn;
     private View IndexBtn;
-    private EditText primeEdt;
+    private EditText primeEdt;   // BIG
     private EditText changingEdt;
     private EditText IndexEdt;
     private TextView primeTxt;

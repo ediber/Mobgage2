@@ -91,10 +91,10 @@ public class SimulationSingleFragment extends Fragment {
             this.proposal = DataManager.getInstance().getProposalByProposalID(this.proposalId);
 
             SimulationDetails simulationDetails = DataManager.getInstance().getSimulationDetails();
-            big = simulationDetails.getBankIsraelAnnualGrowth();
+            big = simulationDetails.getBankIsraelAnnualGrowth() / 100;
             fig = simulationDetails.getFixedInterestAnnualGrowth();
             ig = simulationDetails.getIndexAnnualGrowth();
-            cap = simulationDetails.getCapInterest();
+            cap = simulationDetails.getCapInterest() / 100;
 
             rows = new ArrayList<>();
 
@@ -121,8 +121,6 @@ public class SimulationSingleFragment extends Fragment {
 
             SimulationRow simulationRow = new SimulationRow();
 
-
-//            String[] routesKindsNames = getResources().getStringArray(R.array.routes_kinds_names);
             for (int i = 0; i < proposal.getRoutes().size(); i++) {
                 calculateRoute(i, position, simulationRow);
             }
@@ -134,7 +132,12 @@ public class SimulationSingleFragment extends Fragment {
 
             holder.month_return.setText(NumberUtils.doubleToMoney(simulationRow.getPayment()));
             holder.interest.setText(NumberUtils.doubleToMoney(simulationRow.getInterest()));
-            holder.left.setText(NumberUtils.doubleToMoney(simulationRow.getLoanBalance()));
+            if(position > 0){
+                holder.left.setText(NumberUtils.doubleToMoney(rows.get(position - 1).getLoanBalance())); // display previous balance
+            } else {
+                holder.left.setText(NumberUtils.doubleToMoney(proposal.getTotalRepayment())); // display previous balance
+
+            }
 
 //                DataManager.getInstance().getRouteKindByID(rout.routeKind);
 
@@ -146,7 +149,6 @@ public class SimulationSingleFragment extends Fragment {
 
             switch (rout.getRouteKind()) {
                 case 0: // ribit prime
-
 
                     ribitPrimeCalculate(adapterPosition, rout, simulationRow);
 
@@ -166,37 +168,34 @@ public class SimulationSingleFragment extends Fragment {
                 case 5: // ribit dolarit
 
                     break;
-
-
             }
-
 
         }
 
         private void ribitPrimeCalculate(int adapterPosition, Route rout, SimulationRow simulationRow) {
-            double INm0;
-            double LP0;
+            double INm;  // interest
+            double LPPrev; // loan balance
+            double INmInitial; // Annual loan interest per month
+
+            INmInitial = (DataManager.PRIME_INTEREST + rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
+
             if (adapterPosition == 0) {
-                INm0 = (DataManager.PRIME_INTEREST + rout.getInterest()) /12;
-                LP0 = rout.getLoanAmount();
+                LPPrev = rout.getLoanAmount();
+                INm = INmInitial / 12;
             } else {  // previous row
-                INm0 = rows.get(adapterPosition - 1).getAnnualLoanInterestPerMonth();
-                LP0 = rows.get(adapterPosition - 1).getLoanBalance();
+//                INmPrev = rows.get(adapterPosition - 1).getAnnualLoanInterestPerMonth(); // TODO
+                LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                INm = Math.min((big / 12 * (adapterPosition) + INmInitial) / 12, cap / 12);
             }
 
+            int YE = rout.getYears();
 
-            int YE = proposal.getYears();
-//            ((INm2*(1+INm2)^(YE*12))/((1+INm2)^(YE*12)-1))*LP1
-            double payment = ((INm0 * Math.pow(1 + INm0, YE * 12) ) / (Math.pow(1 + INm0, YE*12) - 1)) * LP0;
-            double loanBalance = LP0 - payment;
+            double payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition) ) / (Math.pow(1 + INm, YE*12 - adapterPosition) - 1)) * LPPrev;
+            double interest = INm * LPPrev;
+            double principal = payment - interest;
+            double loanBalance = LPPrev - principal;
 
-
-            double annualLoanInterestPerMonth = Math.min((big / 12 * (adapterPosition) + INm0) / 12, cap / 12);
-            double interest = annualLoanInterestPerMonth / 12 * loanBalance;
-//                     double principal;
-
-            incrementSimulationRow(simulationRow, payment, loanBalance, annualLoanInterestPerMonth, interest);
-
+            incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
         }
 
         private void incrementSimulationRow(SimulationRow simulationRow, double payment, double loanBalance, double annualLoanInterestPerMonth, double interest) {
@@ -218,7 +217,6 @@ public class SimulationSingleFragment extends Fragment {
             private TextView date;
             private View parent;
 
-
             public CustomViewHolder(View view) {
                 super(view);
                 this.parent = view;
@@ -226,7 +224,6 @@ public class SimulationSingleFragment extends Fragment {
                 this.left = (TextView) view.findViewById(R.id.single_row_left);
                 this.month_return = (TextView) view.findViewById(R.id.single_row_month_return);
                 this.date = (TextView) view.findViewById(R.id.single_row_date);
-///
             }
         }
     }

@@ -46,7 +46,7 @@ public class DataManager
 	private boolean hasProposals;
 	private boolean isInMortgageFlow;
 	private static Context mContext;
-	public static final float PRIME_INTEREST = 1.5f;
+	public static final float PRIME_INTEREST = 2.25f;
 	public static final float BANK_ISRAEL_INTEREST = 0.1f;
 	public static final float YEARLY_INDEX = 2.5f;
 	

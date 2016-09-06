@@ -80,7 +80,7 @@
                 android:drawableEnd="@drawable/percent"
                 android:gravity="center"
                 android:inputType="numberDecimal"
-                android:text="2"
+                android:text="0.8"
                 android:layout_marginRight="40dp"
                 />
 
@@ -259,7 +259,7 @@
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:inputType="numberDecimal"
-                android:text="2"
+                android:text="6"
                 android:layout_marginRight="40dp"
                 />
 

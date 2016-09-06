@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/simulation_single_effective_interest"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="15dp"
                 />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/simulation_single_mortgage_left"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="15dp"
                 />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/simulation_single_monthly_return"
-                />
+                android:layout_marginRight="15dp" />
 
             <TextView
                 style="@style/style_black_text_medium_normal"
