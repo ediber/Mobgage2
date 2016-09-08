@@ -125,14 +125,14 @@ public class SimulationSingleFragment extends Fragment {
                 calculateRoute(i, position, simulationRow);
             }
 
-            if(rows.size() > position){
+            if (rows.size() > position) {
                 rows.remove(position);
             }
             rows.add(position, simulationRow);
 
             holder.month_return.setText(NumberUtils.doubleToMoney(simulationRow.getPayment()));
             holder.interest.setText(NumberUtils.doubleToMoney(simulationRow.getInterest()));
-            if(position > 0){
+            if (position > 0) {
                 holder.left.setText(NumberUtils.doubleToMoney(rows.get(position - 1).getLoanBalance())); // display previous balance
             } else {
                 holder.left.setText(NumberUtils.doubleToMoney(proposal.getTotalRepayment())); // display previous balance
@@ -149,15 +149,13 @@ public class SimulationSingleFragment extends Fragment {
 
             switch (rout.getRouteKind()) {
                 case 0: // ribit prime
-
-                    ribitPrimeCalculate(adapterPosition, rout, simulationRow);
-
+//                    ribitPrimeCalculate(adapterPosition, rout, simulationRow);
                     break;
                 case 1: // ribit kvua tsmuda lamadad
 
                     break;
                 case 2: // ribit kvua lo tsmuda
-
+                    ribitKvuaLoTsmudaCalculate(adapterPosition, rout, simulationRow);
                     break;
                 case 3: // ribit mishtana tsmuda lamadad
 
@@ -177,26 +175,56 @@ public class SimulationSingleFragment extends Fragment {
             double LPPrev; // loan balance
             double INmInitial; // Annual loan interest per month
 
+
             INmInitial = (DataManager.PRIME_INTEREST + rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
 
             if (adapterPosition == 0) {
                 LPPrev = rout.getLoanAmount();
                 INm = INmInitial / 12;
             } else {  // previous row
-//                INmPrev = rows.get(adapterPosition - 1).getAnnualLoanInterestPerMonth(); // TODO
                 LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
                 INm = Math.min((big / 12 * (adapterPosition) + INmInitial) / 12, cap / 12);
             }
 
             int YE = rout.getYears();
 
-            double payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition) ) / (Math.pow(1 + INm, YE*12 - adapterPosition) - 1)) * LPPrev;
+            double payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition)) / (Math.pow(1 + INm, YE * 12 - adapterPosition) - 1)) * LPPrev;
             double interest = INm * LPPrev;
             double principal = payment - interest;
             double loanBalance = LPPrev - principal;
 
             incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+
         }
+
+        private void ribitKvuaLoTsmudaCalculate(int adapterPosition, Route rout, SimulationRow simulationRow) {
+            double INm;  // interest
+            double LPPrev; // loan balance
+//            double INmInitial; // Annual loan interest per month
+            double payment;
+
+            if (adapterPosition < rout.getYears() * 12) { // within loan months
+                INm = rout.getInterest() / (100 * 12);  //100 for precentage   annualLoanInterestPerMonth
+
+                int YE = rout.getYears();
+
+                if (adapterPosition == 0) {
+                    LPPrev = rout.getLoanAmount();
+                    payment = ((INm * Math.pow(1 + INm, YE * 12)) / (Math.pow(1 + INm, YE * 12) - 1)) * LPPrev;
+                } else {  // previous row
+                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                    payment = rows.get(adapterPosition - 1).getPayment();
+                }
+
+                double interest = INm * LPPrev;
+                double principal = payment - interest;
+                double loanBalance = LPPrev - principal;
+
+                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+            }
+        }
+
+
 
         private void incrementSimulationRow(SimulationRow simulationRow, double payment, double loanBalance, double annualLoanInterestPerMonth, double interest) {
             simulationRow.addAnnualLoanInterestPerMonth(annualLoanInterestPerMonth);
