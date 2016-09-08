@@ -93,7 +93,8 @@ public class SimulationSingleFragment extends Fragment {
             SimulationDetails simulationDetails = DataManager.getInstance().getSimulationDetails();
             big = simulationDetails.getBankIsraelAnnualGrowth() / 100;
             fig = simulationDetails.getFixedInterestAnnualGrowth();
-            ig = simulationDetails.getIndexAnnualGrowth();
+//            =(1+D33)^(1/12)-1
+            ig = simulationDetails.getIndexAnnualGrowth() / (100*12);
             cap = simulationDetails.getCapInterest() / 100;
 
             rows = new ArrayList<>();
@@ -152,10 +153,10 @@ public class SimulationSingleFragment extends Fragment {
 //                    ribitPrimeCalculate(adapterPosition, rout, simulationRow);
                     break;
                 case 1: // ribit kvua tsmuda lamadad
-
+                    ribitKvuaTsmudaCalculate(adapterPosition, rout, simulationRow);
                     break;
                 case 2: // ribit kvua lo tsmuda
-                    ribitKvuaLoTsmudaCalculate(adapterPosition, rout, simulationRow);
+//                    ribitKvuaLoTsmudaCalculate(adapterPosition, rout, simulationRow);
                     break;
                 case 3: // ribit mishtana tsmuda lamadad
 
@@ -168,6 +169,34 @@ public class SimulationSingleFragment extends Fragment {
                     break;
             }
 
+        }
+
+        private void ribitKvuaTsmudaCalculate(int adapterPosition, Route rout, SimulationRow simulationRow) {
+            double INm;  // interest
+            double LPPrev; // loan balance
+            double payment;
+
+            if (adapterPosition < rout.getYears() * 12) { // within loan months
+                INm = rout.getInterest() / (100 * 12);  //100 for precentage   annualLoanInterestPerMonth
+
+                int YE = rout.getYears();
+
+                if (adapterPosition == 0) {
+                    LPPrev = rout.getLoanAmount();
+                    payment = ((INm * Math.pow(1 + INm, YE * 12)) / (Math.pow(1 + INm, YE * 12) - 1)) * LPPrev;
+                } else {  // previous row
+                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                  //  Pmt*(1+Ig)^(n-1)
+                    double firstPayment = rows.get(0).getPayment();
+                    payment = firstPayment * Math.pow(1+ig, adapterPosition);
+                }
+
+                double interest = INm * LPPrev;
+                double principal = payment - interest;
+                double loanBalance = LPPrev - principal;
+
+                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+            }
         }
 
         private void ribitPrimeCalculate(int adapterPosition, Route rout, SimulationRow simulationRow) {
@@ -200,7 +229,6 @@ public class SimulationSingleFragment extends Fragment {
         private void ribitKvuaLoTsmudaCalculate(int adapterPosition, Route rout, SimulationRow simulationRow) {
             double INm;  // interest
             double LPPrev; // loan balance
-//            double INmInitial; // Annual loan interest per month
             double payment;
 
             if (adapterPosition < rout.getYears() * 12) { // within loan months
