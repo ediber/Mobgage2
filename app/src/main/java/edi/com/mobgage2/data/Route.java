@@ -9,7 +9,7 @@ public class Route
 	public int years;
 	public float interest;
 	public float monthRepayment;
-	public int returnMethod;
+	public int returnMethod; // 1- spitzer, 0- keren shava
 	
 	public int routeKind;
 	public float totalRepayment;
