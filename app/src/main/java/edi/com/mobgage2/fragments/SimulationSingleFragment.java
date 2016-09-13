@@ -151,26 +151,26 @@ public class SimulationSingleFragment extends Fragment {
 
                 switch (rout.getRouteKind()) {
                     case 0: // ribit prime -- prime loan spitzer
-//                    ribitPrimeCalculate(adapterPosition, rout, simulationRow);
+                        primeLoanSpitzer(adapterPosition, rout, simulationRow);
                         break;
                     case 1: // ribit kvua tsmuda lamadad -- fixed rate spitzer linked
-//                    ribitKvuaTsmudaCalculate(adapterPosition, rout, simulationRow);
+                        fixedRateSpitzerLinked(adapterPosition, rout, simulationRow);
                         break;
                     case 2: // ribit kvua lo tsmuda -- fixed rate spitzer
-//                    ribitKvuaLoTsmudaCalculate(adapterPosition, rout, simulationRow);
+                        fixedRateSpitzer(adapterPosition, rout, simulationRow);
                         break;
                 }
 
             } else if (rout.getReturnMethod() == 0) { // keren shava
                 switch (rout.getRouteKind()) {
-                    case 0:
-
+                    case 0: // prime loan - fixed prinsipal
+                        primeLoanFixedPrincipal(adapterPosition, rout, simulationRow);
                         break;
                     case 1: // fixed rate - fixed principal linked
-                        fixedRateFixedPrincipalLinked(adapterPosition, rout, simulationRow);
+//                        fixedRateFixedPrincipalLinked(adapterPosition, rout, simulationRow);
                         break;
                     case 2: // fixed rate - fixed principal
-                        fixedRateFixedPrincipal(adapterPosition, rout, simulationRow);
+//                        fixedRateFixedPrincipal(adapterPosition, rout, simulationRow);
                         break;
 
                 }
@@ -180,9 +180,7 @@ public class SimulationSingleFragment extends Fragment {
         }
 
 
-
-
-        private void ribitKvuaTsmudaCalculate(int adapterPosition, Route rout, SimulationRow simulationRow) {
+        private void fixedRateSpitzerLinked(int adapterPosition, Route rout, SimulationRow simulationRow) {
             double INm;  // interest
             double LPPrev; // loan balance
             double payment;
@@ -210,7 +208,37 @@ public class SimulationSingleFragment extends Fragment {
             }
         }
 
-        private void ribitPrimeCalculate(int adapterPosition, Route rout, SimulationRow simulationRow) {
+
+        private void fixedRateFixedPrincipalLinked(int adapterPosition, Route rout, SimulationRow simulationRow) {
+            double INm;  // interest
+            double LPPrev; // loan balance
+            double payment;
+            double principal;
+            double pp;
+
+            if (adapterPosition < rout.getYears() * 12) { // within loan months
+                INm = rout.getInterest() / (100 * 12);  //100 for precentage   annualLoanInterestPerMonth
+                pp = rout.getLoanAmount() / (rout.getYears() * 12);
+
+                if (adapterPosition == 0) {
+                    LPPrev = rout.getLoanAmount();
+                    principal = pp;
+                } else {  // previous row
+                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                    // PP*(1+Ig)^(n-1)
+                    principal = pp * Math.pow(1 + ig, adapterPosition);
+                }
+
+//
+                double interest = INm * LPPrev;
+                payment = principal + interest;
+                double loanBalance = (LPPrev - principal) * (1 + ig);
+
+                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+            }
+        }
+
+        private void primeLoanSpitzer(int adapterPosition, Route rout, SimulationRow simulationRow) {
             double INm;  // interest
             double LPPrev; // loan balance
             double INmInitial; // Annual loan interest per month
@@ -238,9 +266,30 @@ public class SimulationSingleFragment extends Fragment {
         }
 
 
-        private void fixedRateFixedPrincipalLinked(int adapterPosition, Route rout, SimulationRow simulationRow) {
+        private void primeLoanFixedPrincipal(int adapterPosition, Route rout, SimulationRow simulationRow) {
+            double INm;  // interest
+            double LPPrev; // loan balance
+            double INmInitial; // Annual loan interest per month
 
+            INmInitial = (DataManager.PRIME_INTEREST + rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
+
+            if (adapterPosition == 0) {
+                LPPrev = rout.getLoanAmount();
+                INm = INmInitial / 12;
+            } else {  // previous row
+                LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                INm = Math.min((big / 12 * (adapterPosition) + INmInitial) / 12, cap / 12);
+            }
+
+            double interest = INm * LPPrev;
+            int YE = rout.getYears();
+            double pp = rout.getLoanAmount() / (YE * 12);
+            double payment = interest + pp;
+            double loanBalance = LPPrev - pp;
+
+            incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
         }
+
 
         private void fixedRateFixedPrincipal(int adapterPosition, Route rout, SimulationRow simulationRow) {
             double INm;  // interest
@@ -266,7 +315,7 @@ public class SimulationSingleFragment extends Fragment {
             }
         }
 
-        private void ribitKvuaLoTsmudaCalculate(int adapterPosition, Route rout, SimulationRow simulationRow) {
+        private void fixedRateSpitzer(int adapterPosition, Route rout, SimulationRow simulationRow) {
             double INm;  // interest
             double LPPrev; // loan balance
             double payment;
