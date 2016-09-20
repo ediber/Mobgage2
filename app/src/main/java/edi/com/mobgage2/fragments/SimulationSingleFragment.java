@@ -93,8 +93,7 @@ public class SimulationSingleFragment extends Fragment {
             SimulationDetails simulationDetails = DataManager.getInstance().getSimulationDetails();
             big = simulationDetails.getBankIsraelAnnualGrowth() / 100;
             fig = simulationDetails.getFixedInterestAnnualGrowth();
-//            =(1+D33)^(1/12)-1
-            ig = simulationDetails.getIndexAnnualGrowth() / (100 * 12);
+            ig = (Math.pow(1 + simulationDetails.getIndexAnnualGrowth()/100, 1.0/12.0 ) - 1);
             cap = simulationDetails.getCapInterest() / 100;
 
             rows = new ArrayList<>();
@@ -161,10 +160,12 @@ public class SimulationSingleFragment extends Fragment {
                         break;
 
                     case 3:
-                        nonFixedRateSpitzer(adapterPosition, rout, simulationRow);
+//                        nonFixedRateSpitzer(adapterPosition, rout, simulationRow);
                         break;
 
-
+                    case 4:
+                        nonFixedRateSpitzerLinked(adapterPosition, rout, simulationRow);
+                        break;
                 }
 
             } else if (rout.getReturnMethod() == 0) { // keren shava
@@ -184,6 +185,8 @@ public class SimulationSingleFragment extends Fragment {
 
 
         }
+
+
 
 
         private void fixedRateSpitzerLinked(int adapterPosition, Route rout, SimulationRow simulationRow) {
@@ -231,11 +234,9 @@ public class SimulationSingleFragment extends Fragment {
                     principal = pp;
                 } else {  // previous row
                     LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
-                    // PP*(1+Ig)^(n-1)
                     principal = pp * Math.pow(1 + ig, adapterPosition);
                 }
 
-//
                 double interest = INm * LPPrev;
                 payment = principal + interest;
                 double loanBalance = (LPPrev - principal) * (1 + ig);
@@ -374,6 +375,33 @@ public class SimulationSingleFragment extends Fragment {
             }
         }
 
+        private void nonFixedRateSpitzerLinked(int adapterPosition, Route rout, SimulationRow simulationRow) {
+            double INm;  // interest
+            double LPPrev; // loan balance
+            double payment;
+
+            if (adapterPosition < rout.getYears() * 12) { // within loan months
+                //100 for precentage   annualLoanInterestPerMonth
+                INm = Math.min((adapterPosition / (rout.changeYears * 12) * DataManager.INTEREST_GROWTH_PER_CYCLE + rout.getInterest()) / (100 * 12), cap / 12);
+
+                int YE = rout.getYears();
+
+                if (adapterPosition == 0) {
+                    LPPrev = rout.getLoanAmount();
+                } else {  // previous row
+                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                }
+
+                payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition)) / (Math.pow(1 + INm, YE * 12 - adapterPosition) - 1)) * LPPrev;
+
+                double interest = INm * LPPrev;
+                double principal = payment - interest;
+                double loanBalance = (LPPrev - principal) * (1 + ig);
+
+
+                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+            }
+        }
 
         private void incrementSimulationRow(SimulationRow simulationRow, double payment, double loanBalance, double annualLoanInterestPerMonth, double interest) {
             simulationRow.addAnnualLoanInterestPerMonth(annualLoanInterestPerMonth);
