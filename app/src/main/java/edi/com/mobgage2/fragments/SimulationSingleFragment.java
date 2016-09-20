@@ -186,8 +186,6 @@ public class SimulationSingleFragment extends Fragment {
         }
 
 
-
-
         private void fixedRateSpitzerLinked(int adapterPosition, Route rout, SimulationRow simulationRow) {
             double INm;  // interest
             double LPPrev; // loan balance
@@ -355,17 +353,18 @@ public class SimulationSingleFragment extends Fragment {
             double payment;
 
             if (adapterPosition < rout.getYears() * 12) { // within loan months
-                INm = (rout.getInterest() / (100 * 12)) + adapterPosition / (rout.changeYears * 12) * DataManager.INTEREST_GROWTH_PER_CYCLE/100;  //100 for precentage   annualLoanInterestPerMonth
+                //100 for precentage   annualLoanInterestPerMonth
+                INm = Math.min((adapterPosition / (rout.changeYears * 12) * DataManager.INTEREST_GROWTH_PER_CYCLE + rout.getInterest()) / (100 * 12), cap / 12);
 
                 int YE = rout.getYears();
 
                 if (adapterPosition == 0) {
                     LPPrev = rout.getLoanAmount();
-                    payment = ((INm * Math.pow(1 + INm, YE * 12)) / (Math.pow(1 + INm, YE * 12) - 1)) * LPPrev;
                 } else {  // previous row
                     LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
-                    payment = rows.get(adapterPosition - 1).getPayment();
                 }
+
+                payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition)) / (Math.pow(1 + INm, YE * 12 - adapterPosition) - 1)) * LPPrev;  ////
 
                 double interest = INm * LPPrev;
                 double principal = payment - interest;
