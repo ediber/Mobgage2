@@ -83,11 +83,25 @@ public class Utils
 		return alert;
 	}
 
-	public static Proposal createProposal(UserDetails userDetails) { // keren shava
+	/*public static Proposal createProposal(UserDetails userDetails) { // keren shava
 		final Proposal proposal = new Proposal(userDetails.userID, DataManager.getInstance().generateUniqueID(), 0, 2, userDetails.mortgageAmount, 15, 0, userDetails.monthRepayment, 0);
 		Route route1 = new Route(userDetails.userID, proposal.proposalID, 1, userDetails.mortgageAmount / 3, 5, (float) -0.9, 0, 0, RouteKinds.KIND_PRIME, 0);
 		Route route2 = new Route(userDetails.userID, proposal.proposalID, 2, userDetails.mortgageAmount / 3, 20, (float) 2, 0, 0, RouteKinds.KIND_KAVUA_TZAMUD, 0);
 		Route route3 = new Route(userDetails.userID, proposal.proposalID, 3, userDetails.mortgageAmount / 3, 15, (float) 1.6, 0, 0, RouteKinds.KIND_KAVUA_LO_TZAMUD, 0);
+		DataManager.getInstance().calculate(route1);
+		DataManager.getInstance().calculate(route2);
+		DataManager.getInstance().calculate(route3);
+		proposal.addOrUpdateRoute(route1);
+		proposal.addOrUpdateRoute(route2);
+		proposal.addOrUpdateRoute(route3);
+		return proposal;
+	}*/
+
+	public static Proposal createProposal(UserDetails userDetails) { // spizer
+		final Proposal proposal = new Proposal(userDetails.userID, DataManager.getInstance().generateUniqueID(), 0, 2, userDetails.mortgageAmount, 15, 0, userDetails.monthRepayment, 0);
+		Route route1 = new Route(userDetails.userID, proposal.proposalID, 1, userDetails.mortgageAmount / 3, 5, (float) -0.9, 0, 1, RouteKinds.KIND_PRIME, 0);
+		Route route2 = new Route(userDetails.userID, proposal.proposalID, 2, userDetails.mortgageAmount / 3, 20, (float) 2, 0, 1, RouteKinds.KIND_KAVUA_TZAMUD, 0);
+		Route route3 = new Route(userDetails.userID, proposal.proposalID, 3, userDetails.mortgageAmount / 3, 15, (float) 1.6, 0, 1, RouteKinds.KIND_KAVUA_LO_TZAMUD, 0);
 		DataManager.getInstance().calculate(route1);
 		DataManager.getInstance().calculate(route2);
 		DataManager.getInstance().calculate(route3);

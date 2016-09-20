@@ -13,7 +13,8 @@ public class Route
 	
 	public int routeKind;
 	public float totalRepayment;
-	
+	public int changeYears;
+
 	public Route(String userID, String proposalID, int routeNum, float loanAmount,
 				 int years, float interest, float monthRepayment, int returnMethod,
 				 int routeKind, float totalRepayment)

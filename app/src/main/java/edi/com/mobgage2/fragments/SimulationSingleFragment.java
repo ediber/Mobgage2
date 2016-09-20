@@ -151,20 +151,26 @@ public class SimulationSingleFragment extends Fragment {
 
                 switch (rout.getRouteKind()) {
                     case 0: // ribit prime -- prime loan spitzer
-                        primeLoanSpitzer(adapterPosition, rout, simulationRow);
+//                        primeLoanSpitzer(adapterPosition, rout, simulationRow);
                         break;
                     case 1: // ribit kvua tsmuda lamadad -- fixed rate spitzer linked
-                        fixedRateSpitzerLinked(adapterPosition, rout, simulationRow);
+//                        fixedRateSpitzerLinked(adapterPosition, rout, simulationRow);
                         break;
                     case 2: // ribit kvua lo tsmuda -- fixed rate spitzer
-                        fixedRateSpitzer(adapterPosition, rout, simulationRow);
+//                        fixedRateSpitzer(adapterPosition, rout, simulationRow);
                         break;
+
+                    case 3:
+                        nonFixedRateSpitzer(adapterPosition, rout, simulationRow);
+                        break;
+
+
                 }
 
             } else if (rout.getReturnMethod() == 0) { // keren shava
                 switch (rout.getRouteKind()) {
                     case 0: // prime loan - fixed prinsipal
-                        primeLoanFixedPrincipal(adapterPosition, rout, simulationRow);
+//                        primeLoanFixedPrincipal(adapterPosition, rout, simulationRow);
                         break;
                     case 1: // fixed rate - fixed principal linked
 //                        fixedRateFixedPrincipalLinked(adapterPosition, rout, simulationRow);
@@ -178,6 +184,8 @@ public class SimulationSingleFragment extends Fragment {
 
 
         }
+
+
 
 
         private void fixedRateSpitzerLinked(int adapterPosition, Route rout, SimulationRow simulationRow) {
@@ -322,6 +330,32 @@ public class SimulationSingleFragment extends Fragment {
 
             if (adapterPosition < rout.getYears() * 12) { // within loan months
                 INm = rout.getInterest() / (100 * 12);  //100 for precentage   annualLoanInterestPerMonth
+
+                int YE = rout.getYears();
+
+                if (adapterPosition == 0) {
+                    LPPrev = rout.getLoanAmount();
+                    payment = ((INm * Math.pow(1 + INm, YE * 12)) / (Math.pow(1 + INm, YE * 12) - 1)) * LPPrev;
+                } else {  // previous row
+                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                    payment = rows.get(adapterPosition - 1).getPayment();
+                }
+
+                double interest = INm * LPPrev;
+                double principal = payment - interest;
+                double loanBalance = LPPrev - principal;
+
+                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+            }
+        }
+
+        private void nonFixedRateSpitzer(int adapterPosition, Route rout, SimulationRow simulationRow) {
+            double INm;  // interest
+            double LPPrev; // loan balance
+            double payment;
+
+            if (adapterPosition < rout.getYears() * 12) { // within loan months
+                INm = (rout.getInterest() / (100 * 12)) + adapterPosition / (rout.changeYears * 12) * DataManager.INTEREST_GROWTH_PER_CYCLE/100;  //100 for precentage   annualLoanInterestPerMonth
 
                 int YE = rout.getYears();
 

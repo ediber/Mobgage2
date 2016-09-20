@@ -113,6 +113,7 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
         EReturnMethod returnMethod = EReturnMethod.toEReturnMethod(route.returnMethod);
         selectedReturnMethod = returnMethod.getIntValue();
         TVreturnMethod.setText(returnMethod.stringValue());
+        TVChangeYears.setText(route.changeYears + "");
 
         calculate();
     }
@@ -144,7 +145,8 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
     private void saveRoute() {
         if (calculate()) {
             String returnMethod = TVreturnMethod.getText().toString();
-            if (returnMethod.equals(getResources().getString(R.string.form_choose))) {
+            String changeYearsStr = TVChangeYears.getText().toString();
+            if (returnMethod.equals(getResources().getString(R.string.form_choose)) || changeYearsStr.equals(getResources().getString(R.string.form_choose))) {
                 errorMsg = getResources().getString(R.string.route_alert_msg1);
                 Utils.showAlert(getResources().getString(R.string.route_alert_title), errorMsg, getResources().getString(R.string.back), getActivity(), null);
             } else {
@@ -153,6 +155,10 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
                 S_loan = S_loan.replace(",", "");
                 String S_interest = ETinterest.getText().toString();
                 String S_years = TVyears.getText().toString();
+                int changeYears = 0;
+                if(! TVChangeYears.getText().toString().equals("")){
+                    changeYears = Integer.parseInt(TVChangeYears.getText().toString());
+                }
 
                 float loan = Float.valueOf(S_loan);
                 float interest = Float.valueOf(S_interest);
@@ -166,9 +172,15 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
                 route.returnMethod = mReturnMethod;
                 route.monthRepayment = monthRepayment;
                 route.totalRepayment = totalRepayment;
+                route.changeYears = changeYears;
 
                 ActiveSelectionData.getInstance().getCurrentProposal().addOrUpdateRoute(route);
+
+//                DataManager.getInstance().saveOrUpdateProposal(ActiveSelectionData.getInstance().getCurrentProposal()
+//                        , DataManager.getInstance().isInMortgageFlow());
+
                 ActiveSelectionData.getInstance().clearRoute();
+
                 moveToScreen(MobgageMainActivity.SCREEN_PROPOSAL_DETAILS, true);
             }
         } else {

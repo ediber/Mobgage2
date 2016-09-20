@@ -49,7 +49,9 @@ public class DataManager
 	public static final float PRIME_INTEREST = 2.25f;
 	public static final float BANK_ISRAEL_INTEREST = 0.1f;
 	public static final float YEARLY_INDEX = 2.5f;
-	
+	public static final double INTEREST_GROWTH_PER_CYCLE = 1.1; // ribit mishtana
+
+
 	private ArrayList<UserDetails> users = new ArrayList<UserDetails>();
 	private ArrayList<Bank> banks = new ArrayList<Bank>();
 	private ArrayList<RouteKind> routesKinds = new ArrayList<RouteKind>();
