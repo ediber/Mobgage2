@@ -66,6 +66,7 @@ public class Proposal {
         to.returnMethod = from.returnMethod;
         to.routeKind = from.routeKind;
         to.totalRepayment = from.totalRepayment;
+        to.changeYears = from.changeYears;
     }
 
     public static Proposal copyProposal(Proposal proposal) {

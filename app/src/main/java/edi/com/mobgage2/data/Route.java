@@ -17,7 +17,7 @@ public class Route
 
 	public Route(String userID, String proposalID, int routeNum, float loanAmount,
 				 int years, float interest, float monthRepayment, int returnMethod,
-				 int routeKind, float totalRepayment)
+				 int routeKind, float totalRepayment, int changeYears)
 	{
 		this.userID = userID;
 		this.proposalID = proposalID;
@@ -29,12 +29,15 @@ public class Route
 		this.returnMethod = returnMethod;
 		this.routeKind = routeKind;
 		this.totalRepayment = totalRepayment;
+		this.changeYears = changeYears;
 	}
-	
+
+
+
 	public Route copyRoute()
 	{
 		return new Route(userID, proposalID, routeNum, loanAmount, years,
-				interest, monthRepayment, returnMethod, routeKind, totalRepayment);
+				interest, monthRepayment, returnMethod, routeKind, totalRepayment, changeYears);
 		
 	}
 

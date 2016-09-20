@@ -14,4 +14,5 @@ public class RouteColumns  implements BaseColumns
 	public static final String COLUMN_RETURN_METHOD = "ReturnMethod";
 	public static final String COLUMN_ROUTE_KIND = "ReturnKind";
 	public static final String COLUMN_TOTAL_REPAYMENT = "TotalRepayment";
+	public static final String COLUMN_CHANGE_YEARS = "ChangeYears";
 }

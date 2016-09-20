@@ -152,7 +152,8 @@ public class DataManager
 					int returnMethod = rCursor.getInt(rCursor.getColumnIndex(RouteColumns.COLUMN_RETURN_METHOD));
 					float RtotalRepayment = rCursor.getFloat(rCursor.getColumnIndex(RouteColumns.COLUMN_TOTAL_REPAYMENT));
 					int routeKind = rCursor.getInt(rCursor.getColumnIndex(RouteColumns.COLUMN_ROUTE_KIND));
-					Route route = new Route(R_userID, proposalID, routeNum, loanAmount, routeYears, interest, routeMonthRepayment, returnMethod, routeKind, RtotalRepayment);
+					int changeYears = rCursor.getInt(rCursor.getColumnIndex(RouteColumns.COLUMN_CHANGE_YEARS));
+					Route route = new Route(R_userID, proposalID, routeNum, loanAmount, routeYears, interest, routeMonthRepayment, returnMethod, routeKind, RtotalRepayment, changeYears);
 					routes.add(route);
 				}
 				
@@ -350,7 +351,7 @@ public class DataManager
 		{
 			SQLiteDatabase db = new DBHelper(mContext).getReadableDatabase();
 			boolean succeeded = db.delete(TableNames.TABLE_USERS, "1", null) > 0;
-			Log.i("delete all users from DB.db", succeeded? "succeeded" : "failed");
+			Log.i("delete users from DB.db", succeeded? "succeeded" : "failed");
 			
 			ContentValues values = new ContentValues();
 			values.put(UserColumns.COLUMN_USER_ID, user.userID);
@@ -492,11 +493,11 @@ public class DataManager
 	{
 		if(proposal.getRoutes().isEmpty())
 		{
-			return (new Route(proposal.userID, proposal.proposalID, 0, 0, 0, 0, 0, 0, routeKind, 0));
+			return (new Route(proposal.userID, proposal.proposalID, 0, 0, 0, 0, 0, 0, routeKind, 0, 0));
 		}
 		
 		int routeNum = ((proposal.getRoutes().get(proposal.getRoutes().size()-1)).routeNum) + 1;
-		return (new Route(proposal.userID, proposal.proposalID, routeNum, 0, 0, 0, 0, 0, routeKind, 0));
+		return (new Route(proposal.userID, proposal.proposalID, routeNum, 0, 0, 0, 0, 0, routeKind, 0, 0));
 	}
 
 
@@ -593,6 +594,7 @@ public class DataManager
 				values.put(RouteColumns.COLUMN_TOTAL_REPAYMENT, route.totalRepayment);
 				values.put(RouteColumns.COLUMN_ROUTE_KIND, route.routeKind);
 				values.put(RouteColumns.COLUMN_YEARS, route.years);
+				values.put(RouteColumns.COLUMN_CHANGE_YEARS, route.changeYears);
 				
 				db.insert(TableNames.TABLE_ROUTES, null, values);
 			}
@@ -667,7 +669,7 @@ public class DataManager
 			}
 			myMortgageProposal = new Proposal(proposal.userID, generateUniqueID(), proposal.proposalNum, proposal.bank, proposal.mortgageAmount, proposal.years, proposal.totalRepayment, proposal.monthRepayment, 1);
 			for (Route route : proposal.getRoutes()) {
-				Route route1 = new Route(route.userID, myMortgageProposal.proposalID, route.routeNum, route.loanAmount, route.years, route.interest, route.monthRepayment, route.returnMethod, route.routeKind, route.totalRepayment);
+				Route route1 = new Route(route.userID, myMortgageProposal.proposalID, route.routeNum, route.loanAmount, route.years, route.interest, route.monthRepayment, route.returnMethod, route.routeKind, route.totalRepayment, route.changeYears);
 				myMortgageProposal.getRoutes().add(route1);
 			}
 			addProposal(myMortgageProposal, true);

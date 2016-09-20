@@ -113,7 +113,9 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
         EReturnMethod returnMethod = EReturnMethod.toEReturnMethod(route.returnMethod);
         selectedReturnMethod = returnMethod.getIntValue();
         TVreturnMethod.setText(returnMethod.stringValue());
-        TVChangeYears.setText(route.changeYears + "");
+        if(route.changeYears != 0){
+            TVChangeYears.setText(route.changeYears + "");
+        }
 
         calculate();
     }
