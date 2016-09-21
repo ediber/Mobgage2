@@ -84,7 +84,15 @@ public class SimulationSingleFragment extends Fragment {
         private double ig;
         private double cap;
 
-        private List<SimulationRow> rows;
+        private List<SimulationRow> totalRows;
+        private List<SimulationRow> fixedRateSpitzerLinkedRows;
+        private List<SimulationRow> fixedRateFixedPrincipalLinkedRows;
+        private List<SimulationRow> primeLoanSpitzerRows;
+        private List<SimulationRow> primeLoanFixedPrincipalRows;
+        private List<SimulationRow> fixedRateFixedPrincipalRows;
+        private List<SimulationRow> fixedRateSpitzerRows;
+        private List<SimulationRow> nonFixedRateSpitzerRows;
+        private List<SimulationRow> nonFixedRateSpitzerLinkedRows;
 
         public SimulationSingleAdapter(String proposalId) {
             this.proposalId = proposalId;
@@ -93,10 +101,18 @@ public class SimulationSingleFragment extends Fragment {
             SimulationDetails simulationDetails = DataManager.getInstance().getSimulationDetails();
             big = simulationDetails.getBankIsraelAnnualGrowth() / 100;
             fig = simulationDetails.getFixedInterestAnnualGrowth();
-            ig = (Math.pow(1 + simulationDetails.getIndexAnnualGrowth()/100, 1.0/12.0 ) - 1);
+            ig = (Math.pow(1 + simulationDetails.getIndexAnnualGrowth() / 100, 1.0 / 12.0) - 1);
             cap = simulationDetails.getCapInterest() / 100;
 
-            rows = new ArrayList<>();
+            totalRows = new ArrayList<>();
+            fixedRateSpitzerLinkedRows = new ArrayList<>();
+            fixedRateFixedPrincipalLinkedRows = new ArrayList<>();
+            primeLoanSpitzerRows = new ArrayList<>();
+            primeLoanFixedPrincipalRows = new ArrayList<>();
+            fixedRateFixedPrincipalRows = new ArrayList<>();
+            fixedRateSpitzerRows = new ArrayList<>();
+            nonFixedRateSpitzerRows = new ArrayList<>();
+            nonFixedRateSpitzerLinkedRows = new ArrayList<>();
 
         }
 
@@ -119,21 +135,21 @@ public class SimulationSingleFragment extends Fragment {
 
             holder.date.setText(month + "/" + year);
 
-            SimulationRow simulationRow = new SimulationRow();
+            SimulationRow simulationTotalRow = new SimulationRow();
 
             for (int i = 0; i < proposal.getRoutes().size(); i++) {
-                calculateRoute(i, position, simulationRow);
+                calculateRoute(i, position, simulationTotalRow);
             }
 
-            if (rows.size() > position) {
-                rows.remove(position);
+            if (totalRows.size() > position) {
+                totalRows.remove(position);
             }
-            rows.add(position, simulationRow);
+            totalRows.add(position, simulationTotalRow);
 
-            holder.month_return.setText(NumberUtils.doubleToMoney(simulationRow.getPayment()));
-            holder.interest.setText(NumberUtils.doubleToMoney(simulationRow.getInterest()));
+            holder.month_return.setText(NumberUtils.doubleToMoney(simulationTotalRow.getPayment()));
+            holder.interest.setText(NumberUtils.doubleToMoney(simulationTotalRow.getInterest()));
             if (position > 0) {
-                holder.left.setText(NumberUtils.doubleToMoney(rows.get(position - 1).getLoanBalance())); // display previous balance
+                holder.left.setText(NumberUtils.doubleToMoney(totalRows.get(position - 1).getLoanBalance())); // display previous balance
             } else {
                 holder.left.setText(NumberUtils.doubleToMoney(proposal.getTotalRepayment())); // display previous balance
 
@@ -150,17 +166,17 @@ public class SimulationSingleFragment extends Fragment {
 
                 switch (rout.getRouteKind()) {
                     case 0: // ribit prime -- prime loan spitzer
-//                        primeLoanSpitzer(adapterPosition, rout, simulationRow);
+                        primeLoanSpitzer(adapterPosition, rout, simulationRow);
                         break;
                     case 1: // ribit kvua tsmuda lamadad -- fixed rate spitzer linked
-//                        fixedRateSpitzerLinked(adapterPosition, rout, simulationRow);
+                        fixedRateSpitzerLinked(adapterPosition, rout, simulationRow);
                         break;
                     case 2: // ribit kvua lo tsmuda -- fixed rate spitzer
-//                        fixedRateSpitzer(adapterPosition, rout, simulationRow);
+                        fixedRateSpitzer(adapterPosition, rout, simulationRow);
                         break;
 
                     case 3:
-//                        nonFixedRateSpitzer(adapterPosition, rout, simulationRow);
+                        nonFixedRateSpitzer(adapterPosition, rout, simulationRow);
                         break;
 
                     case 4:
@@ -171,13 +187,13 @@ public class SimulationSingleFragment extends Fragment {
             } else if (rout.getReturnMethod() == 0) { // keren shava
                 switch (rout.getRouteKind()) {
                     case 0: // prime loan - fixed prinsipal
-//                        primeLoanFixedPrincipal(adapterPosition, rout, simulationRow);
+                        primeLoanFixedPrincipal(adapterPosition, rout, simulationRow);
                         break;
                     case 1: // fixed rate - fixed principal linked
-//                        fixedRateFixedPrincipalLinked(adapterPosition, rout, simulationRow);
+                        fixedRateFixedPrincipalLinked(adapterPosition, rout, simulationRow);
                         break;
                     case 2: // fixed rate - fixed principal
-//                        fixedRateFixedPrincipal(adapterPosition, rout, simulationRow);
+                        fixedRateFixedPrincipal(adapterPosition, rout, simulationRow);
                         break;
 
                 }
@@ -185,8 +201,6 @@ public class SimulationSingleFragment extends Fragment {
 
 
         }
-
-
 
 
         private void fixedRateSpitzerLinked(int adapterPosition, Route rout, SimulationRow simulationRow) {
@@ -203,9 +217,9 @@ public class SimulationSingleFragment extends Fragment {
                     LPPrev = rout.getLoanAmount();
                     payment = ((INm * Math.pow(1 + INm, YE * 12)) / (Math.pow(1 + INm, YE * 12) - 1)) * LPPrev;
                 } else {  // previous row
-                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                    LPPrev = fixedRateSpitzerLinkedRows.get(adapterPosition - 1).getLoanBalance();
                     //  Pmt*(1+Ig)^(n-1)
-                    double firstPayment = rows.get(0).getPayment();
+                    double firstPayment = fixedRateSpitzerLinkedRows.get(0).getPayment();
                     payment = firstPayment * Math.pow(1 + ig, adapterPosition);
                 }
 
@@ -213,7 +227,8 @@ public class SimulationSingleFragment extends Fragment {
                 double principal = payment - interest;
                 double loanBalance = LPPrev - principal;
 
-                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+                updateSimulationSpecificRow(fixedRateSpitzerLinkedRows, payment, loanBalance, INm, interest, adapterPosition);
+                incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
             }
         }
 
@@ -233,7 +248,7 @@ public class SimulationSingleFragment extends Fragment {
                     LPPrev = rout.getLoanAmount();
                     principal = pp;
                 } else {  // previous row
-                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                    LPPrev = fixedRateFixedPrincipalLinkedRows.get(adapterPosition - 1).getLoanBalance();
                     principal = pp * Math.pow(1 + ig, adapterPosition);
                 }
 
@@ -241,7 +256,8 @@ public class SimulationSingleFragment extends Fragment {
                 payment = principal + interest;
                 double loanBalance = (LPPrev - principal) * (1 + ig);
 
-                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+                updateSimulationSpecificRow(fixedRateFixedPrincipalLinkedRows, payment, loanBalance, INm, interest, adapterPosition);
+                incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
             }
         }
 
@@ -250,27 +266,31 @@ public class SimulationSingleFragment extends Fragment {
             double LPPrev; // loan balance
             double INmInitial; // Annual loan interest per month
 
+            if (adapterPosition < rout.getYears() * 12) { // within loan months
 
-            INmInitial = (DataManager.PRIME_INTEREST + rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
+                INmInitial = (DataManager.PRIME_INTEREST + rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
 
-            if (adapterPosition == 0) {
-                LPPrev = rout.getLoanAmount();
-                INm = INmInitial / 12;
-            } else {  // previous row
-                LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
-                INm = Math.min((big / 12 * (adapterPosition) + INmInitial) / 12, cap / 12);
+                if (adapterPosition == 0) {
+                    LPPrev = rout.getLoanAmount();
+                    INm = INmInitial / 12;
+                } else {  // previous row
+                    LPPrev = primeLoanSpitzerRows.get(adapterPosition - 1).getLoanBalance();
+                    INm = Math.min((big / 12 * (adapterPosition) + INmInitial) / 12, cap / 12);
+                }
+
+                int YE = rout.getYears();
+
+                double payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition)) / (Math.pow(1 + INm, YE * 12 - adapterPosition) - 1)) * LPPrev;
+                double interest = INm * LPPrev;
+                double principal = payment - interest;
+                double loanBalance = LPPrev - principal;
+
+                updateSimulationSpecificRow(primeLoanSpitzerRows, payment, loanBalance, INm, interest, adapterPosition);
+                incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
             }
-
-            int YE = rout.getYears();
-
-            double payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition)) / (Math.pow(1 + INm, YE * 12 - adapterPosition) - 1)) * LPPrev;
-            double interest = INm * LPPrev;
-            double principal = payment - interest;
-            double loanBalance = LPPrev - principal;
-
-            incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
-
         }
+
+
 
 
         private void primeLoanFixedPrincipal(int adapterPosition, Route rout, SimulationRow simulationRow) {
@@ -278,23 +298,26 @@ public class SimulationSingleFragment extends Fragment {
             double LPPrev; // loan balance
             double INmInitial; // Annual loan interest per month
 
-            INmInitial = (DataManager.PRIME_INTEREST + rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
+            if (adapterPosition < rout.getYears() * 12) { // within loan months
+                INmInitial = (DataManager.PRIME_INTEREST + rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
 
-            if (adapterPosition == 0) {
-                LPPrev = rout.getLoanAmount();
-                INm = INmInitial / 12;
-            } else {  // previous row
-                LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
-                INm = Math.min((big / 12 * (adapterPosition) + INmInitial) / 12, cap / 12);
+                if (adapterPosition == 0) {
+                    LPPrev = rout.getLoanAmount();
+                    INm = INmInitial / 12;
+                } else {  // previous row
+                    LPPrev = primeLoanFixedPrincipalRows.get(adapterPosition - 1).getLoanBalance();
+                    INm = Math.min((big / 12 * (adapterPosition) + INmInitial) / 12, cap / 12);
+                }
+
+                double interest = INm * LPPrev;
+                int YE = rout.getYears();
+                double pp = rout.getLoanAmount() / (YE * 12);
+                double payment = interest + pp;
+                double loanBalance = LPPrev - pp;
+
+                updateSimulationSpecificRow(primeLoanFixedPrincipalRows, payment, loanBalance, INm, interest, adapterPosition);
+                incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
             }
-
-            double interest = INm * LPPrev;
-            int YE = rout.getYears();
-            double pp = rout.getLoanAmount() / (YE * 12);
-            double payment = interest + pp;
-            double loanBalance = LPPrev - pp;
-
-            incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
         }
 
 
@@ -310,7 +333,7 @@ public class SimulationSingleFragment extends Fragment {
                 if (adapterPosition == 0) {
                     LPPrev = rout.getLoanAmount();
                 } else {  // previous row
-                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                    LPPrev = fixedRateFixedPrincipalRows.get(adapterPosition - 1).getLoanBalance();
                 }
 
                 double principal = rout.getLoanAmount() / (rout.getYears() * 12);
@@ -318,7 +341,8 @@ public class SimulationSingleFragment extends Fragment {
                 payment = principal + interest;
                 double loanBalance = LPPrev - principal;
 
-                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+                updateSimulationSpecificRow(fixedRateFixedPrincipalRows, payment, loanBalance, INm, interest, adapterPosition);
+                incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
             }
         }
 
@@ -336,15 +360,16 @@ public class SimulationSingleFragment extends Fragment {
                     LPPrev = rout.getLoanAmount();
                     payment = ((INm * Math.pow(1 + INm, YE * 12)) / (Math.pow(1 + INm, YE * 12) - 1)) * LPPrev;
                 } else {  // previous row
-                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
-                    payment = rows.get(adapterPosition - 1).getPayment();
+                    LPPrev = fixedRateSpitzerRows.get(adapterPosition - 1).getLoanBalance();
+                    payment = fixedRateSpitzerRows.get(adapterPosition - 1).getPayment();
                 }
 
                 double interest = INm * LPPrev;
                 double principal = payment - interest;
                 double loanBalance = LPPrev - principal;
 
-                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+                updateSimulationSpecificRow(fixedRateSpitzerRows, payment, loanBalance, INm, interest, adapterPosition);
+                incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
             }
         }
 
@@ -362,7 +387,7 @@ public class SimulationSingleFragment extends Fragment {
                 if (adapterPosition == 0) {
                     LPPrev = rout.getLoanAmount();
                 } else {  // previous row
-                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                    LPPrev = nonFixedRateSpitzerRows.get(adapterPosition - 1).getLoanBalance();
                 }
 
                 payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition)) / (Math.pow(1 + INm, YE * 12 - adapterPosition) - 1)) * LPPrev;  ////
@@ -371,7 +396,8 @@ public class SimulationSingleFragment extends Fragment {
                 double principal = payment - interest;
                 double loanBalance = LPPrev - principal;
 
-                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+                updateSimulationSpecificRow(nonFixedRateSpitzerRows, payment, loanBalance, INm, interest, adapterPosition);
+                incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
             }
         }
 
@@ -389,7 +415,7 @@ public class SimulationSingleFragment extends Fragment {
                 if (adapterPosition == 0) {
                     LPPrev = rout.getLoanAmount();
                 } else {  // previous row
-                    LPPrev = rows.get(adapterPosition - 1).getLoanBalance();
+                    LPPrev = nonFixedRateSpitzerLinkedRows.get(adapterPosition - 1).getLoanBalance();
                 }
 
                 payment = ((INm * Math.pow(1 + INm, YE * 12 - adapterPosition)) / (Math.pow(1 + INm, YE * 12 - adapterPosition) - 1)) * LPPrev;
@@ -398,16 +424,27 @@ public class SimulationSingleFragment extends Fragment {
                 double principal = payment - interest;
                 double loanBalance = (LPPrev - principal) * (1 + ig);
 
-
-                incrementSimulationRow(simulationRow, payment, loanBalance, INm, interest);
+                updateSimulationSpecificRow(nonFixedRateSpitzerLinkedRows, payment, loanBalance, INm, interest, adapterPosition);
+                incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
             }
         }
 
-        private void incrementSimulationRow(SimulationRow simulationRow, double payment, double loanBalance, double annualLoanInterestPerMonth, double interest) {
+        private void incrementSimulationTotalRow(SimulationRow simulationRow, double payment, double loanBalance, double annualLoanInterestPerMonth, double interest) {
             simulationRow.addAnnualLoanInterestPerMonth(annualLoanInterestPerMonth);
             simulationRow.addInterest(interest);
             simulationRow.addLoanBalance(loanBalance);
             simulationRow.addPayment(payment);
+        }
+
+        private void updateSimulationSpecificRow(List<SimulationRow> specificRows, double payment, double loanBalance, double annualLoanInterestPerMonth, double interest, int adapterPosition) {
+            SimulationRow row = new SimulationRow();
+
+            row.addAnnualLoanInterestPerMonth(annualLoanInterestPerMonth);
+            row.addInterest(interest);
+            row.addLoanBalance(loanBalance);
+            row.addPayment(payment);
+
+            specificRows.add(row);
         }
 
         @Override
