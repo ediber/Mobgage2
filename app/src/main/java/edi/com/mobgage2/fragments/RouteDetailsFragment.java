@@ -32,11 +32,14 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
     private TextView TVreturnMethod, TVyears, TVmonthRepayment;
     private TextView TVChangeYears;
     private ImageView monthRepaymentImage;
+    private View LayoutChangeYears;
+
     private String errorMsg;
     private int selectedReturnMethod;
 
     private float monthRepayment;
     private float totalRepayment;
+
 
 
     @Override
@@ -77,6 +80,8 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
         TVmonthRepayment = (TextView) view.findViewById(R.id.route_moth_repayment);
         monthRepaymentImage = (ImageView) view.findViewById(R.id.route_moth_repayment_image);
         TVChangeYears = (TextView) view.findViewById(R.id.route_change_every_years);
+        LayoutChangeYears = view.findViewById(R.id.route_change_every_years_layout);
+
 
         if (ActiveSelectionData.getInstance().getCurrentProposal().isRouteExist(route.routeNum) != null) {
             initFields();
@@ -101,6 +106,11 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
                 calculate();
             }
         });
+
+        // make item gone if,   fixedRateSpitzerLinked, primeLoanSpitzer, nonFixedRateSpitzer
+        if(route.getRouteKind() == 0 || route.getRouteKind() == 1 || route.getRouteKind() == 2){
+            LayoutChangeYears.setVisibility(View.INVISIBLE);
+        }
 
         return view;
     }
