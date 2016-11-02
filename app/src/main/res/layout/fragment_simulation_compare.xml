@@ -11,9 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/details_bg"
-        android:padding="10dp">
+        >
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:background="@drawable/grey_title" >
 
+            <TextView
+                style="@style/style_white_text"
+                android:text="@string/simulation_compare_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center" />
+        </FrameLayout>
 
         <LinearLayout
             android:orientation="horizontal"

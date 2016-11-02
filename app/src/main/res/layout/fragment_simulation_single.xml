@@ -15,18 +15,34 @@
         android:gravity="right"
         android:foregroundGravity="right">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:background="@drawable/grey_title" >
+
+            <TextView
+                style="@style/style_white_text"
+                android:text="@string/simulation_single_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center" />
+        </FrameLayout>
+
         <TextView
-            style="@style/style_black_text_medium_normal"
+            style="@style/style_black_text_medium_bold"
             android:id="@+id/simulation_single_offer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            />
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 style="@style/style_black_text_medium_normal"

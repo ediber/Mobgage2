@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="right">
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    >
+
 
     <TextView
-        style="@style/style_black_text_medium_normal"
+        style="@style/style_black_text_small"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="interest"
-        android:layout_marginRight="30dp"
         android:id="@+id/single_row_interest"
-        />
+        android:gravity="center" />
 
     <TextView
-        style="@style/style_black_text_medium_normal"
+        style="@style/style_black_text_small"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="left"
-        android:layout_marginRight="30dp"
-        android:id="@+id/single_row_left" />
+        android:id="@+id/single_row_left"
+        android:gravity="center" />
 
     <TextView
-        style="@style/style_black_text_medium_normal"
+        style="@style/style_black_text_small"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="return"
-        android:layout_marginRight="30dp"
-        android:id="@+id/single_row_month_return" />
+        android:id="@+id/single_row_month_return"
+        android:gravity="center" />
 
     <TextView
-        style="@style/style_black_text_medium_normal"
+        style="@style/style_black_text_small"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="date"
-        android:id="@+id/single_row_date" />
+        android:id="@+id/single_row_date"
+        android:gravity="center" />
 
-    <TextView
+<!--    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-99"
         android:id="@+id/to_remove"
-        android:textColor="#f80707" />
+        android:textColor="#f80707" />-->
 
 </LinearLayout>

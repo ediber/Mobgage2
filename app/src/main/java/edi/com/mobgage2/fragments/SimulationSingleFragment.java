@@ -118,7 +118,8 @@ public class SimulationSingleFragment extends Fragment {
 
         @Override
         public SimulationSingleAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simulation_single_row, null);
+//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simulation_single_row, null);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simulation_single_row, parent, false);
 
             CustomViewHolder viewHolder = new CustomViewHolder(view);
             return viewHolder;

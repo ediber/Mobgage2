@@ -211,11 +211,13 @@
     <string name="max_interest">ריבית מקסימלית</string>
 
     <!--simulation compare-->
+    <string name="simulation_compare_title">בחירת סימולציה</string>
     <string name="simulation_compare_offers">הצעות</string>
     <string name="simulation_compare_monthly_return">החזר חודשי ממוצע</string>
     <string name="simulation_compare_all_morgage">סהכ משכנתא</string>
 
     <!--simulation single-->
+    <string name="simulation_single_title">סימולציה</string>
     <string name="simulation_single_date">תאריך</string>
     <string name="simulation_single_monthly_return">החזר חודשי</string>
     <string name="simulation_single_mortgage_left">יתרת משכנתא</string>
