@@ -366,7 +366,7 @@ public class MobgageMainActivity extends Activity implements OnClickListener {
 
             case SCREEN_USER_SIMULATION_COMPARE: {
                 ActiveSelectionData.getInstance().clearProposal();
-                showScreen(SCREEN_MAIN, false, null);
+                showScreen(SCREEN_USER_SIMULATION_INIT, false, null);
                 break;
             }
 
