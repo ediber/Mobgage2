@@ -126,9 +126,9 @@
     </string-array>
 
     <string-array name="routes_kinds_names">
-        <item> פריים שפיצר</item>
-        <item> קבועה צמודה למדד שפיצר</item>
-        <item> קבועה לא צמודה שפיצר</item>
+        <item> פריים</item>
+        <item> קבועה צמודה למדד</item>
+        <item> קבועה לא צמודה</item>
         <item>ריבית משתנה לא צמודה למדד</item>
         <item>ריבית משתנה צמודה למדד</item>
 
