@@ -68,8 +68,14 @@ public class ChooseBankFragment extends Fragment implements OnItemClickListener
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
 		Bank bank = (Bank) parent.getItemAtPosition(position);
-		String userID = ActiveSelectionData.getInstance().getCurrentUser().userID;
-		
+
+		String userID;
+		if(ActiveSelectionData.getInstance().getCurrentUser() == null){
+			userID = "not_signed@not_signed.com";
+		} else {
+			userID = ActiveSelectionData.getInstance().getCurrentUser().userID;
+		}
+
 		Proposal proposal = ActiveSelectionData.getInstance().getCurrentProposal();
 		if(proposal != null)
 		{	
