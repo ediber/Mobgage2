@@ -75,6 +75,10 @@ public class ProposalDetailsFragment extends Fragment implements OnClickListener
             titleText = bankName + " - " + (proposalNumString) + " " + (proposalNum);
         }
 
+        if(proposal.isRecommendation == 1){
+            titleText = titleText + " (" + getResources().getString(R.string.proposal_recommendation) + ")" ;
+        }
+
         title.setText(titleText);
 
         totalAmountsTV = (TextView) view.findViewById(R.id.proposal_total_amounts);

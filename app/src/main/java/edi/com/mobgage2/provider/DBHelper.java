@@ -43,6 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
             ProposalColumns.COLUMN_PROPOSAL_ID + " nvarchar, " +
             ProposalColumns.COLUMN_PROPOSAL_NUM + " int, " +
             ProposalColumns.COLUMN_TOTAL_REPAYMENT + " float, " +
+            ProposalColumns.COLUMN_IS_RECOMMENDATION + " int, " +
             ProposalColumns.COLUMN_YEARS + " int" + ");";
 
     private static final String CREATE_ROUTES = "create table "

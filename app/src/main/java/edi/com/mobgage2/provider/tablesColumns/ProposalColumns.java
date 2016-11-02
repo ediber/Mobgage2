@@ -13,4 +13,5 @@ public class ProposalColumns implements BaseColumns
 	public static final String COLUMN_TOTAL_REPAYMENT = "TotalRepayment";
 	public static final String COLUMN_MONTH_REPAYMENT = "MonthRepayment";
 	public static final String COLUMN_MY_MORTGAGE = "MyMortgage";		//	1 - mine,  0 - not mine
+	public static final String COLUMN_IS_RECOMMENDATION = "isRecommendation"; // 1 - true, 0 - false
 }

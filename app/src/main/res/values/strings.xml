@@ -73,6 +73,7 @@
     <string name="proposal_update_my_mortgage">עדכן משכנתא</string>
     <string name="proposal_mail_title">שיתוף מסלול</string>
     <string name="proposal_change">החלף משכנתא</string>
+    <string name="proposal_recommendation">המלצה</string>
 
     <!--main-->
     <string name="main_proposal_dialog_title">חסרים נתונים</string>

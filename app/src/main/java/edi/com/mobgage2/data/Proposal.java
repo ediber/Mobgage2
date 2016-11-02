@@ -12,12 +12,13 @@ public class Proposal {
     public float totalRepayment;
     public float monthRepayment;
     public int myMortgage;        //	1 - mine,  0 - not mine
+    public int isRecommendation = 0; //	1 - true,  0 - false
 
     private ArrayList<Route> routes = new ArrayList<Route>();
 
     public Proposal(String userID, String proposalID, int proposalNum,
                     int bank, float mortgageAmount, int years, float totalRepayment,
-                    float monthRepayment, int myMortgage) {
+                    float monthRepayment, int myMortgage, int isRecommendation) {
         this.userID = userID;
         this.proposalID = proposalID;
         this.proposalNum = proposalNum;
@@ -27,6 +28,7 @@ public class Proposal {
         this.totalRepayment = totalRepayment;
         this.monthRepayment = monthRepayment;
         this.myMortgage = myMortgage;
+        this.isRecommendation = isRecommendation;
     }
 
     public ArrayList<Route> getRoutes() {
@@ -71,7 +73,7 @@ public class Proposal {
 
     public static Proposal copyProposal(Proposal proposal) {
         Proposal copy = new Proposal(proposal.userID, proposal.proposalID, proposal.proposalNum, proposal.bank,
-                proposal.mortgageAmount, proposal.years, proposal.totalRepayment, proposal.monthRepayment, proposal.myMortgage);
+                proposal.mortgageAmount, proposal.years, proposal.totalRepayment, proposal.monthRepayment, proposal.myMortgage, proposal.isRecommendation);
         for (Route route : proposal.getRoutes()) {
             copy.getRoutes().add(route.copyRoute());
         }

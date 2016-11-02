@@ -203,8 +203,12 @@ public class ProposalListFragment extends Fragment implements OnClickListener, I
 	        final Proposal item = proposalData.get(position);
 	        
 	        String bankName = DataManager.getInstance().getBankByID(item.bank).bankName;
-//	        String rowTitle = bankName + " - " + getResources().getString(R.string.list_proposal_num) + " " + (position+1);
 	        String rowTitle = bankName + " - " + getResources().getString(R.string.list_proposal_num) + " " + (DataManager.getInstance().getProposalPositionByID(item.proposalID));
+
+			if(item.isRecommendation == 1){ // true
+				rowTitle = rowTitle + " (" + getResources().getString(R.string.proposal_recommendation) + ")" ;
+			}
+
 	        holder.proposalTitleTV.setText(rowTitle);
 	        
 	        holder.monthRepaymentTV.setText(NumberUtils.formatedRound(item.monthRepayment + ""));

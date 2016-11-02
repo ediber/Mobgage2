@@ -133,6 +133,7 @@ public class DataManager
 				float totalRepayment = pCursor.getFloat(pCursor.getColumnIndex(ProposalColumns.COLUMN_TOTAL_REPAYMENT));
 				float monthRepayment = pCursor.getFloat(pCursor.getColumnIndex(ProposalColumns.COLUMN_MONTH_REPAYMENT));
 				int myMortgage = pCursor.getInt(pCursor.getColumnIndex(ProposalColumns.COLUMN_MY_MORTGAGE));
+				int isRecommendation = pCursor.getInt(pCursor.getColumnIndex(ProposalColumns.COLUMN_IS_RECOMMENDATION));
 				
 				String routesQuery = "SELECT * FROM " + TableNames.TABLE_ROUTES + " WHERE "
 				+ RouteColumns.COLUMN_PROPOSAL_ID + " = '" + proposalID + "'" + " ORDER BY " + RouteColumns.COLUMN_ROUTE_NUM;
@@ -157,7 +158,7 @@ public class DataManager
 					routes.add(route);
 				}
 				
-				Proposal proposal = new Proposal(P_userID, proposalID, proposalNum, bank, mortgageAmount, years, totalRepayment, monthRepayment, myMortgage);
+				Proposal proposal = new Proposal(P_userID, proposalID, proposalNum, bank, mortgageAmount, years, totalRepayment, monthRepayment, myMortgage, isRecommendation);
 				proposal.setRoutes(routes);
 				if(myMortgage == 1){
 					myMortgageProposal = proposal;
@@ -459,7 +460,7 @@ public class DataManager
 		ArrayList<Proposal> proposalsList = new ArrayList<Proposal>(proposals.values());
 		if(proposalsList.isEmpty()) 
 		{ 
-			return (new Proposal(userID, generateUniqueID(), 0, bankID, 0, 0, 0, 0, 0));
+			return (new Proposal(userID, generateUniqueID(), 0, bankID, 0, 0, 0, 0, 0, 0));
 		}
 		
 		Collections.sort(proposalsList, new Comparator<Proposal>() {
@@ -471,7 +472,7 @@ public class DataManager
         });
 		
 		int proposalNum = ((proposalsList.get(proposalsList.size()-1)).proposalNum) + 1;
-		return new Proposal(userID, generateUniqueID(), proposalNum, bankID, 0, 0, 0, 0, 0);
+		return new Proposal(userID, generateUniqueID(), proposalNum, bankID, 0, 0, 0, 0, 0, 0);
 	}
 	
 	public ArrayList<Proposal> getProposalsListByOrder()
@@ -608,8 +609,9 @@ public class DataManager
 			values.put(ProposalColumns.COLUMN_PROPOSAL_ID, proposal.proposalID);
 			values.put(ProposalColumns.COLUMN_PROPOSAL_NUM, proposal.proposalNum);
 			values.put(ProposalColumns.COLUMN_TOTAL_REPAYMENT, proposal.totalRepayment);
+			values.put(ProposalColumns.COLUMN_IS_RECOMMENDATION, proposal.isRecommendation); //////////////
 			values.put(ProposalColumns.COLUMN_YEARS, proposal.years);
-			
+
 			db.insert(TableNames.TABLE_PROPOSALS, null, values);
 		}
 		catch(Exception e)
@@ -667,7 +669,7 @@ public class DataManager
 			if(myMortgageProposal != null){
 				deleteProposal(myMortgageProposal.proposalID, true);
 			}
-			myMortgageProposal = new Proposal(proposal.userID, generateUniqueID(), proposal.proposalNum, proposal.bank, proposal.mortgageAmount, proposal.years, proposal.totalRepayment, proposal.monthRepayment, 1);
+			myMortgageProposal = new Proposal(proposal.userID, generateUniqueID(), proposal.proposalNum, proposal.bank, proposal.mortgageAmount, proposal.years, proposal.totalRepayment, proposal.monthRepayment, 1, proposal.isRecommendation);
 			for (Route route : proposal.getRoutes()) {
 				Route route1 = new Route(route.userID, myMortgageProposal.proposalID, route.routeNum, route.loanAmount, route.years, route.interest, route.monthRepayment, route.returnMethod, route.routeKind, route.totalRepayment, route.changeYears);
 				myMortgageProposal.getRoutes().add(route1);
