@@ -39,7 +39,7 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
 
     private float monthRepayment;
     private float totalRepayment;
-
+    private boolean changeYearsNeeded;
 
 
     @Override
@@ -109,7 +109,10 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
 
         // make item gone if,   fixedRateSpitzerLinked, primeLoanSpitzer, nonFixedRateSpitzer
         if(route.getRouteKind() == 0 || route.getRouteKind() == 1 || route.getRouteKind() == 2){
-            LayoutChangeYears.setVisibility(View.INVISIBLE);
+            LayoutChangeYears.setVisibility(View.GONE);
+            changeYearsNeeded = false;
+        } else {
+            changeYearsNeeded = true;
         }
 
         return view;
@@ -158,7 +161,7 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
         if (calculate()) {
             String returnMethod = TVreturnMethod.getText().toString();
             String changeYearsStr = TVChangeYears.getText().toString();
-            if (returnMethod.equals(getResources().getString(R.string.form_choose)) || changeYearsStr.equals(getResources().getString(R.string.form_choose))) {
+            if (returnMethod.equals(getResources().getString(R.string.form_choose)) || (changeYearsNeeded && changeYearsStr.equals(getResources().getString(R.string.form_choose)))) {
                 errorMsg = getResources().getString(R.string.route_alert_msg1);
                 Utils.showAlert(getResources().getString(R.string.route_alert_title), errorMsg, getResources().getString(R.string.back), getActivity(), null);
             } else {
@@ -168,9 +171,14 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
                 String S_interest = ETinterest.getText().toString();
                 String S_years = TVyears.getText().toString();
                 int changeYears = 0;
-                if(! TVChangeYears.getText().toString().equals("")){
-                    changeYears = Integer.parseInt(TVChangeYears.getText().toString());
+                if(changeYearsNeeded){
+                    if(! TVChangeYears.getText().toString().equals("")){
+                        changeYears = Integer.parseInt(TVChangeYears.getText().toString());
+                    }
+                } else{
+                    changeYears = -1;
                 }
+
 
                 float loan = Float.valueOf(S_loan);
                 float interest = Float.valueOf(S_interest);

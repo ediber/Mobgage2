@@ -189,7 +189,9 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="15dip"
                 android:layout_weight="1"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:id="@+id/route_change_every_years_layout"
+                >
 
                 <LinearLayout
                     android:layout_width="0dp"
