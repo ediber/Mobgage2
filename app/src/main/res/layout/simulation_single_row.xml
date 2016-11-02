@@ -40,4 +40,11 @@
         android:text="date"
         android:id="@+id/single_row_date" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-99"
+        android:id="@+id/to_remove"
+        android:textColor="#f80707" />
+
 </LinearLayout>

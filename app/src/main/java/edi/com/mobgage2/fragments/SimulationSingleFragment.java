@@ -152,10 +152,9 @@ public class SimulationSingleFragment extends Fragment {
                 holder.left.setText(NumberUtils.doubleToMoney(totalRows.get(position - 1).getLoanBalance())); // display previous balance
             } else {
                 holder.left.setText(NumberUtils.doubleToMoney(proposal.getTotalRepayment())); // display previous balance
-
             }
 
-//                DataManager.getInstance().getRouteKindByID(rout.routeKind);
+//            holder.toRemove.setText(position + "");
 
         }
 
@@ -225,7 +224,7 @@ public class SimulationSingleFragment extends Fragment {
 
                 double interest = INm * LPPrev;
                 double principal = payment - interest;
-                double loanBalance = LPPrev - principal;
+                double loanBalance = (LPPrev - principal) * (1 + ig);
 
                 updateSimulationSpecificRow(fixedRateSpitzerLinkedRows, payment, loanBalance, INm, interest, adapterPosition);
                 incrementSimulationTotalRow(simulationRow, payment, loanBalance, INm, interest);
@@ -457,15 +456,16 @@ public class SimulationSingleFragment extends Fragment {
             private TextView left;
             private TextView month_return;
             private TextView date;
-            private View parent;
+//            private TextView toRemove;
 
             public CustomViewHolder(View view) {
                 super(view);
-                this.parent = view;
                 this.interest = (TextView) view.findViewById(R.id.single_row_interest);
                 this.left = (TextView) view.findViewById(R.id.single_row_left);
                 this.month_return = (TextView) view.findViewById(R.id.single_row_month_return);
                 this.date = (TextView) view.findViewById(R.id.single_row_date);
+
+//                this.toRemove = (TextView) view.findViewById(R.id.to_remove);
             }
         }
     }
