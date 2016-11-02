@@ -31,10 +31,11 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right">
+            android:gravity="center"
+            android:layout_marginBottom="10dp">
 
             <TextView
-                style="@style/style_black_text_medium_normal"
+                style="@style/style_black_text_medium_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/simulation_compare_all_morgage"
@@ -42,7 +43,7 @@
                  />
 
             <TextView
-                style="@style/style_black_text_medium_normal"
+                style="@style/style_black_text_medium_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/simulation_compare_monthly_return"
@@ -50,7 +51,7 @@
                 />
 
             <TextView
-                style="@style/style_black_text_medium_normal"
+                style="@style/style_black_text_medium_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/simulation_compare_offers"
