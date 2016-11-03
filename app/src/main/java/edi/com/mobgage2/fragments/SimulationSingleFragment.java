@@ -68,6 +68,11 @@ public class SimulationSingleFragment extends Fragment {
         Proposal proposal = DataManager.getInstance().getProposalByProposalID(proposalId);
         String bankName = DataManager.getInstance().getBankByID(proposal.bank).bankName;
         String rowTitle = bankName + " - " + getResources().getString(R.string.list_proposal_num) + " " + (DataManager.getInstance().getProposalPositionByID(proposal.proposalID));
+
+        if(proposal.isRecommendation == 1){
+            rowTitle = rowTitle + " (" + getResources().getString(R.string.proposal_recommendation) + ")" ;
+        }
+
         offer.setText(rowTitle);
 
         return view;

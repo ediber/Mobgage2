@@ -81,16 +81,19 @@ public class SimulationCompareFragment extends Fragment {
         public void onBindViewHolder(SimulationCompareAdapter.CustomViewHolder holder, int position) {
             final Proposal proposal = proposals.get(position);
 
-
             String bankName = DataManager.getInstance().getBankByID(proposal.bank).bankName;
             String rowTitle = bankName + " - " + context.getResources().getString(R.string.list_proposal_num) + " " + (DataManager.getInstance().getProposalPositionByID(proposal.proposalID));
-            holder.name.setText(rowTitle);
-            holder.parent.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    moveNext(proposal.getProposalID());
 
-                    return true;
+            if(proposal.isRecommendation == 1){
+                rowTitle = rowTitle + " (" + getResources().getString(R.string.proposal_recommendation) + ")" ;
+            }
+
+            holder.name.setText(rowTitle);
+
+            holder.parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    moveNext(proposal.getProposalID());
                 }
             });
 
