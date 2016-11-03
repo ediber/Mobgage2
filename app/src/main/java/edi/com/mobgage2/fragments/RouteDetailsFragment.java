@@ -309,7 +309,7 @@ public class RouteDetailsFragment extends Fragment implements OnClickListener, T
 
     private void returnMethodClick() {
         String title = getResources().getString(R.string.return_method_picker_title);
-        String[] data = {EReturnMethod.EQUAL_FOUNDATION.stringValue(), EReturnMethod.SHPITZER.stringValue(), EReturnMethod.BOLIT.stringValue()};
+        String[] data = {EReturnMethod.EQUAL_FOUNDATION.stringValue(), EReturnMethod.SHPITZER.stringValue()};
         PickerDialog picker = new PickerDialog(title, data, new IPickerCallback() {
             @Override
             public void onUserSelection(String stringValue, int position) {

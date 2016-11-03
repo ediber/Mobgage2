@@ -35,7 +35,7 @@
 
     <string name="equal_foundation">קרן שווה</string>
     <string name="shpitzer">שפיצר</string>
-    <string name="bolit">בוליט</string>
+    <!--  <string name="bolit">בוליט</string> -->
 
     <string name="alert2_title">קיימת הצעה קודמת לבנק זה</string>
     <string name="alert2_msg">האם לערוך הצעה קודמת או להתחיל מחדש?</string>

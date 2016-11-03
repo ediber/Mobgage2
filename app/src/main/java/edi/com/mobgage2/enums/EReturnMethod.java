@@ -6,7 +6,7 @@ import edi.com.mobgage2.managers.DataManager;
 
 public enum EReturnMethod
 {
-	EQUAL_FOUNDATION(0), SHPITZER(1), BOLIT(2);
+	EQUAL_FOUNDATION(0), SHPITZER(1);
 	
 	private int intValue;
 	private EReturnMethod(int value)
@@ -25,10 +25,6 @@ public enum EReturnMethod
 		{
 			return SHPITZER;
 		}
-		case 2:
-		{
-			return BOLIT;
-		}
 		default:
 			return null;
 		}
@@ -44,10 +40,6 @@ public enum EReturnMethod
 		case 1:
 		{
 			return DataManager.getInstance().getStringResource(R.string.shpitzer);
-		}
-		case 2:
-		{
-			return DataManager.getInstance().getStringResource(R.string.bolit);
 		}
 		default:
 			return null;
