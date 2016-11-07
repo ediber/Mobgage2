@@ -48,7 +48,7 @@
     <string name="route_text3">ריבית שנתית:</string>
     <string name="route_text4">תקופה בשנים:</string>
     <string name="route_text5">שיטת החזר:</string>
-    <string name="route_text7">ריבית משתנה בשנים</string>
+    <string name="route_text7">תקופת שינוי ריבית בשנים:</string>
     <string name="route_text6">החזר חודשי:</string>
     <string name="route_btn">שמור מסלול</string>
     <string name="route_alert_title">לא ניתן לשמור מסלול</string>
@@ -214,15 +214,18 @@
     <!--simulation compare-->
     <string name="simulation_compare_title">בחירת סימולציה</string>
     <string name="simulation_compare_offers">הצעות</string>
-    <string name="simulation_compare_monthly_return">החזר חודשי ממוצע</string>
-    <string name="simulation_compare_all_morgage">סהכ משכנתא</string>
+    <string name="simulation_compare_monthly_return">החזר\nחודשי</string>
+    <!--<string name="simulation_compare_all_morgage">סהכ משכנתא</string>-->
+    <string name="simulation_compare_all_morgage">סהכ\nמשכנתא</string>
 
     <!--simulation single-->
     <string name="simulation_single_title">סימולציה</string>
     <string name="simulation_single_date">תאריך</string>
-    <string name="simulation_single_monthly_return">החזר חודשי</string>
-    <string name="simulation_single_mortgage_left">יתרת משכנתא</string>
-    <string name="simulation_single_effective_interest">ריבית אפקטיבית</string>
+    <string name="simulation_single_monthly_return">החזר\nחודשי</string>
+    <string name="simulation_single_mortgage_left">יתרת\nמשכנתא</string>
+    <string name="simulation_single_effective_interest">תשלום\nריבית</string>
+    <string name="simulation_single_total_repayment">סהכ החזרים:</string>
+
 
 
 

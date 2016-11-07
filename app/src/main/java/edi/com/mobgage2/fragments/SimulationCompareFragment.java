@@ -71,7 +71,8 @@ public class SimulationCompareFragment extends Fragment {
 
         @Override
         public SimulationCompareAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simulation_compare_row, null);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simulation_compare_row, parent, false);
+
 
 
             CustomViewHolder viewHolder = new CustomViewHolder(view);
@@ -83,10 +84,10 @@ public class SimulationCompareFragment extends Fragment {
             final Proposal proposal = proposals.get(position);
 
             String bankName = DataManager.getInstance().getBankByID(proposal.bank).bankName;
-            String rowTitle = bankName + " - " + context.getResources().getString(R.string.list_proposal_num) + " " + (DataManager.getInstance().getProposalPositionByID(proposal.proposalID));
+            String rowTitle =  context.getResources().getString(R.string.list_proposal_num) + " " + (DataManager.getInstance().getProposalPositionByID(proposal.proposalID)) + " - " + bankName;
 
             if(proposal.isRecommendation == 1){
-                rowTitle = rowTitle + " (" + getResources().getString(R.string.proposal_recommendation) + ")" ;
+                rowTitle = rowTitle + " \n (" + getResources().getString(R.string.proposal_recommendation) + ")" ;
             }
 
             holder.name.setText(rowTitle);
@@ -100,8 +101,6 @@ public class SimulationCompareFragment extends Fragment {
 
             holder.overall.setText(NumberUtils.doubleToMoney(proposal.getTotalRepayment()) + "");
             holder.monthlyReturn.setText(NumberUtils.doubleToMoney(proposal.getMonthRepayment()) + "");
-
-
         }
 
         @Override

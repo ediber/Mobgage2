@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="right"
+    android:orientation="horizontal"
+    android:paddingBottom="20dp"
     >
 
     <TextView
         style="@style/style_black_text_medium_normal"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="2.5"
         android:text="overall"
-        android:layout_marginRight="30dp"
+        android:gravity="right"
         android:id="@+id/compare_row_overall" />
 
     <TextView
         style="@style/style_black_text_medium_normal"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:text="return"
-        android:layout_marginRight="30dp"
+        android:gravity="right"
         android:id="@+id/compare_row_monthly_return" />
 
     <TextView
         style="@style/style_black_text_medium_normal"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="5"
         android:text="name"
+        android:gravity="right"
         android:id="@+id/compare_row_name" />
 
 </LinearLayout>

@@ -21,6 +21,10 @@ import edi.com.mobgage2.data.SimulationRow;
 import edi.com.mobgage2.managers.DataManager;
 import edi.com.mobgage2.utils.NumberUtils;
 
+import static edi.com.mobgage2.R.id.simulation_single_offer;
+import static edi.com.mobgage2.R.id.simulation_single_total_amount;
+import static edi.com.mobgage2.managers.DataManager.INTEREST_GROWTH_PER_CYCLE;
+
 
 public class SimulationSingleFragment extends Fragment {
 
@@ -30,6 +34,7 @@ public class SimulationSingleFragment extends Fragment {
     private RecyclerView recyclerView;
     private SimulationSingleAdapter adapter;
     private TextView offer;
+    private TextView totalAmountView;
 
     public SimulationSingleFragment() {
         // Required empty public constructor
@@ -60,7 +65,9 @@ public class SimulationSingleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_simulation_single, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.simulation_single_recyclerView);
-        offer = (TextView) view.findViewById(R.id.simulation_single_offer);
+        offer = (TextView) view.findViewById(simulation_single_offer);
+        totalAmountView = (TextView) view.findViewById(simulation_single_total_amount);
+
 
         adapter = new SimulationSingleAdapter(proposalId);
         recyclerView.setAdapter(adapter);
@@ -68,12 +75,14 @@ public class SimulationSingleFragment extends Fragment {
         Proposal proposal = DataManager.getInstance().getProposalByProposalID(proposalId);
         String bankName = DataManager.getInstance().getBankByID(proposal.bank).bankName;
         String rowTitle = bankName + " - " + getResources().getString(R.string.list_proposal_num) + " " + (DataManager.getInstance().getProposalPositionByID(proposal.proposalID));
+        String totalAmount = NumberUtils.doubleToMoney(proposal.getTotalRepaymentSum()) + "";
 
         if(proposal.isRecommendation == 1){
             rowTitle = rowTitle + " (" + getResources().getString(R.string.proposal_recommendation) + ")" ;
         }
 
         offer.setText(rowTitle);
+        totalAmountView.setText(totalAmount);
 
         return view;
     }
@@ -161,7 +170,7 @@ public class SimulationSingleFragment extends Fragment {
                 // TODO proposal.getTotalRepayment() or proposal.getMortgageAmount()
             }
 
-//            holder.toRemove.setText(position + "");
+            holder.toRemove.setText(position + "");
 
         }
 
@@ -386,7 +395,7 @@ public class SimulationSingleFragment extends Fragment {
 
             if (adapterPosition < rout.getYears() * 12) { // within loan months
                 //100 for precentage   annualLoanInterestPerMonth
-                INm = Math.min((adapterPosition / (rout.changeYears * 12) * DataManager.INTEREST_GROWTH_PER_CYCLE + rout.getInterest()) / (100 * 12), cap / 12);
+                INm = Math.min((adapterPosition / (rout.changeYears * 12) * INTEREST_GROWTH_PER_CYCLE + rout.getInterest()) / (100 * 12), cap / 12);
 
                 int YE = rout.getYears();
 
@@ -412,9 +421,17 @@ public class SimulationSingleFragment extends Fragment {
             double LPPrev; // loan balance
             double payment;
 
+/*
+            if(adapterPosition == 141){
+                int a = 1;
+                int b = a;
+            }
+*/
+
             if (adapterPosition < rout.getYears() * 12) { // within loan months
                 //100 for precentage   annualLoanInterestPerMonth
-                INm = Math.min((adapterPosition / (rout.changeYears * 12) * DataManager.INTEREST_GROWTH_PER_CYCLE + rout.getInterest()) / (100 * 12), cap / 12);
+//                double fixedInterestAnnualGrowth = DataManager.getInstance().getSimulationDetails().getFixedInterestAnnualGrowth();
+                INm = Math.min((adapterPosition / (rout.changeYears * 12) * fig + rout.getInterest()) / (100 * 12), cap / 12);
 
                 int YE = rout.getYears();
 
@@ -463,7 +480,7 @@ public class SimulationSingleFragment extends Fragment {
             private TextView left;
             private TextView month_return;
             private TextView date;
-//            private TextView toRemove;
+            private TextView toRemove;
 
             public CustomViewHolder(View view) {
                 super(view);
@@ -472,7 +489,7 @@ public class SimulationSingleFragment extends Fragment {
                 this.month_return = (TextView) view.findViewById(R.id.single_row_month_return);
                 this.date = (TextView) view.findViewById(R.id.single_row_date);
 
-//                this.toRemove = (TextView) view.findViewById(R.id.to_remove);
+                this.toRemove = (TextView) view.findViewById(R.id.to_remove);
             }
         }
     }
