@@ -157,7 +157,8 @@ public class SimulationSingleFragment extends Fragment {
             if (position > 0) {
                 holder.left.setText(NumberUtils.doubleToMoney(totalRows.get(position - 1).getLoanBalance())); // display previous balance
             } else {
-                holder.left.setText(NumberUtils.doubleToMoney(proposal.getTotalRepayment())); // display previous balance
+                holder.left.setText(NumberUtils.doubleToMoney(proposal.getMortgageAmount())); // display previous balance
+                // TODO proposal.getTotalRepayment() or proposal.getMortgageAmount()
             }
 
 //            holder.toRemove.setText(position + "");
@@ -273,7 +274,7 @@ public class SimulationSingleFragment extends Fragment {
 
             if (adapterPosition < rout.getYears() * 12) { // within loan months
 
-                INmInitial = (DataManager.PRIME_INTEREST + rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
+                INmInitial = (DataManager.PRIME_INTEREST - rout.getInterest()) / 100;  //100 for precentage   annualLoanInterestPerMonth
 
                 if (adapterPosition == 0) {
                     LPPrev = rout.getLoanAmount();
