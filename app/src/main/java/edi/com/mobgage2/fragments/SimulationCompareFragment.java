@@ -16,6 +16,7 @@ import edi.com.mobgage2.R;
 import edi.com.mobgage2.activities.MobgageMainActivity;
 import edi.com.mobgage2.data.Proposal;
 import edi.com.mobgage2.managers.DataManager;
+import edi.com.mobgage2.utils.NumberUtils;
 
 
 public class SimulationCompareFragment extends Fragment {
@@ -97,9 +98,10 @@ public class SimulationCompareFragment extends Fragment {
                 }
             });
 
+            holder.overall.setText(NumberUtils.doubleToMoney(proposal.getTotalRepayment()) + "");
+            holder.monthlyReturn.setText(NumberUtils.doubleToMoney(proposal.getMonthRepayment()) + "");
 
-            holder.overall.setText(proposal.getTotalRepayment() + "");
-            holder.monthlyReturn.setText(proposal.getMonthRepayment() + "");
+
         }
 
         @Override

@@ -83,7 +83,7 @@ public class NumberUtils
     }
 
     public static String doubleToMoney(double amount) {
-        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        DecimalFormat formatter = new DecimalFormat("#,###");
         String amountStr = formatter.format(amount);
         return amountStr;
     }

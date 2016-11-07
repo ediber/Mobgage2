@@ -42,7 +42,8 @@
         android:layout_width="35dip"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:visibility="visible" >
+        android:visibility="visible"
+        android:padding="2dp">
         <ImageView
             android:layout_width="36dip"
             android:layout_height="wrap_content"
