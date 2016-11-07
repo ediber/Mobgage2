@@ -86,6 +86,7 @@ public class DetailsFormFragment extends Fragment implements OnClickListener, Te
 		ETmonthRepayment.addTextChangedListener(this);
 		ETassetValue.addTextChangedListener(this);
         ETsalary.addTextChangedListener(this);
+		ETmortgageAmount.addTextChangedListener(this);
 		
 		ETmortgageAmount.setOnFocusChangeListener(this);
 		ETmonthRepayment.setOnFocusChangeListener(this);
