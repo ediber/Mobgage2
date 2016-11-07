@@ -64,8 +64,8 @@ public class SimulationCompareFragment extends Fragment {
         public SimulationCompareAdapter(Context context) {
             this.context = context;
             this.proposals = DataManager.getInstance().getProposalsListByOrder();
-//            proposal.getTotalRepayment()
-            Collections.sort(proposals, new TotalRepaymentComparator());
+//            Collections.sort(proposals, new TotalRepaymentComparator());
+            Collections.sort(proposals, new NumberComparator());
         }
 
 
@@ -144,4 +144,11 @@ public class SimulationCompareFragment extends Fragment {
     }
 
 
+    private class NumberComparator implements java.util.Comparator<Proposal> {
+
+        @Override
+        public int compare(Proposal lhs, Proposal rhs) {
+            return ((Integer)lhs.proposalNum).compareTo(rhs.proposalNum);
+        }
+    }
 }
