@@ -39,15 +39,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
-                android:text="@string/simulation_compare_all_morgage"
-                android:id="@+id/textView2" />
+                android:text="@string/simulation_compare_all_percentage"
+                 />
 
             <TextView
                 style="@style/style_black_text_medium_bold"
                 android:layout_width="0dp"
-                android:layout_weight="2.5"
+                android:layout_weight="3.2"
                 android:layout_height="wrap_content"
-                android:text="@string/simulation_compare_monthly_return"
+                android:text="@string/simulation_compare_initial_mortgage"
                 />
 
             <TextView

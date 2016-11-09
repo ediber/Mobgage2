@@ -12,18 +12,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
-        android:text="overall"
+        android:text="return"
         android:gravity="right"
-        android:id="@+id/compare_row_overall" />
+        android:id="@+id/compare_row_total_percentage" />
 
     <TextView
         style="@style/style_black_text_medium_normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:text="return"
+        android:layout_weight="2.5"
+        android:text="overall"
         android:gravity="right"
-        android:id="@+id/compare_row_monthly_return" />
+        android:id="@+id/compare_row_initial_mortgage" />
 
     <TextView
         style="@style/style_black_text_medium_normal"

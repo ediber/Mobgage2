@@ -13,8 +13,11 @@ public class Proposal {
     public float monthRepayment;
     public int myMortgage;        //	1 - mine,  0 - not mine
     public int isRecommendation = 0; //	1 - true,  0 - false
+    public int totalPayment = 0;
+    public int totalPercentage;
 
     private ArrayList<Route> routes = new ArrayList<Route>();
+
 
     public Proposal(String userID, String proposalID, int proposalNum,
                     int bank, float mortgageAmount, int years, float totalRepayment,
@@ -155,5 +158,21 @@ public class Proposal {
 
     public int getMyMortgage() {
         return myMortgage;
+    }
+
+    public int getTotalPayment() {
+        return totalPayment;
+    }
+
+    public int getTotalPercentage() {
+        return totalPercentage;
+    }
+
+    public void setTotalPayment(int totalPayment) {
+        this.totalPayment = totalPayment;
+    }
+
+    public void setTotalPercentage(int totalPercentage) {
+        this.totalPercentage = totalPercentage;
     }
 }

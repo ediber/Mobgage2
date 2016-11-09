@@ -214,9 +214,8 @@
     <!--simulation compare-->
     <string name="simulation_compare_title">בחירת סימולציה</string>
     <string name="simulation_compare_offers">הצעות</string>
-    <string name="simulation_compare_monthly_return">החזר\nחודשי</string>
-    <!--<string name="simulation_compare_all_morgage">סהכ משכנתא</string>-->
-    <string name="simulation_compare_all_morgage">סהכ\nמשכנתא</string>
+    <string name="simulation_compare_initial_mortgage">גובה\nההלוואה</string>
+    <string name="simulation_compare_all_percentage">אחוז תשלומי\nריבית</string>
 
     <!--simulation single-->
     <string name="simulation_single_title">סימולציה</string>
@@ -225,6 +224,7 @@
     <string name="simulation_single_mortgage_left">יתרת\nמשכנתא</string>
     <string name="simulation_single_effective_interest">תשלום\nריבית</string>
     <string name="simulation_single_total_repayment">סהכ החזרים:</string>
+    <string name="simulation_single_total_percentage">סהכ ריבית:</string>
 
 
 
