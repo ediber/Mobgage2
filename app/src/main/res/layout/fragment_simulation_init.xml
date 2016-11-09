@@ -28,11 +28,13 @@
 
         <TextView
             style="@style/style_black_text_bold"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/simulation_add_parameters"
-            android:gravity="start" />
+            android:gravity="start"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             style="@style/style_black_text_bold"
@@ -46,7 +48,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,8 +59,9 @@
 
                 <FrameLayout
                     android:id="@+id/simulation_init_prime_btn"
-                    android:layout_width="50dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:background="@drawable/blue_button"
                     android:layout_marginRight="20dp">
 
@@ -68,8 +71,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="0.3"
-                            android:id="@+id/simulation_init_prime_txt" />
+                            android:text="0.3%"
+                            android:id="@+id/simulation_init_prime_txt"
+                            />
 
                 </FrameLayout>
 
@@ -79,8 +83,9 @@
                 <EditText
                     android:id="@+id/simulation_init_prime_edit"
                     style="@style/style_blue_text"
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:background="@drawable/edit_text_bg"
                     android:drawableEnd="@drawable/percent"
                     android:gravity="center"
@@ -92,9 +97,9 @@
 
                 <TextView
                     style="@style/style_black_text_bold"
-
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="18"
                     android:text="@string/prime_change"
 
                     />
@@ -113,8 +118,9 @@
 
                 <FrameLayout
                     android:id="@+id/simulation_init_changing_btn"
-                    android:layout_width="50dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:background="@drawable/blue_button"
                     android:layout_marginRight="20dp">
 
@@ -124,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="0.15"
+                        android:text="0.15%"
                         android:id="@+id/simulation_init_changing_txt" />
 
                 </FrameLayout>
@@ -135,8 +141,9 @@
                 <EditText
                     android:id="@+id/simulation_init_changing_edit"
                     style="@style/style_blue_text"
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:background="@drawable/edit_text_bg"
                     android:drawableEnd="@drawable/percent"
                     android:drawablePadding="5dp"
@@ -149,9 +156,9 @@
 
                 <TextView
                     style="@style/style_black_text_bold"
-
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="18"
                     android:text="@string/interest_change"
 
                     />
@@ -170,8 +177,9 @@
 
                 <FrameLayout
                     android:id="@+id/simulation_init_index_btn"
-                    android:layout_width="50dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:background="@drawable/blue_button"
                     android:layout_marginRight="20dp">
 
@@ -182,7 +190,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="2.1" />
+                        android:text="2.1%" />
 
                 </FrameLayout>
 
@@ -192,8 +200,9 @@
                 <EditText
                     android:id="@+id/simulation_init_index_edit"
                     style="@style/style_blue_text"
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:background="@drawable/edit_text_bg"
                     android:drawableEnd="@drawable/percent"
                     android:drawablePadding="5dp"
@@ -207,8 +216,9 @@
                 <TextView
                     style="@style/style_black_text_bold"
 
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="18"
                     android:text="@string/price_change"
 
                     />
@@ -227,8 +237,9 @@
 
                 <FrameLayout
                     android:id="@+id/simulation_init_max_btn"
-                    android:layout_width="50dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:background="@drawable/blue_button"
                     android:layout_marginRight="20dp">
 
@@ -239,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="7" />
+                        android:text="7%" />
 
                 </FrameLayout>
 
@@ -249,8 +260,9 @@
                 <EditText
                     android:id="@+id/simulation_init_max_edit"
                     style="@style/style_blue_text"
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:background="@drawable/edit_text_bg"
                     android:drawableEnd="@drawable/percent"
                     android:drawablePadding="5dp"
@@ -263,9 +275,9 @@
 
                 <TextView
                     style="@style/style_black_text_bold"
-
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="18"
                     android:text="@string/max_interest"
 
                     />

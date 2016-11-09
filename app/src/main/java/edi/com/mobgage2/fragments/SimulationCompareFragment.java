@@ -64,8 +64,8 @@ public class SimulationCompareFragment extends Fragment {
         public SimulationCompareAdapter(Context context) {
             this.context = context;
             this.proposals = DataManager.getInstance().getProposalsListByOrder();
-//            Collections.sort(proposals, new TotalRepaymentComparator());
-            Collections.sort(proposals, new NumberComparator());
+            Collections.sort(proposals, new TotalRepaymentComparator());
+//            Collections.sort(proposals, new NumberComparator());
         }
 
 

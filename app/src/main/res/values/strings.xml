@@ -98,8 +98,8 @@
     <string name="list_proposal_num">הצעה מס</string>
     <string name="list_text1">סכום המשכנתא</string>
     <string name="list_text2">שנים</string>
-    <string name="list_text3">החזר בתום תקופה</string>
-    <string name="list_text4">החזר חודשי</string>
+    <string name="list_text3">סהכ החזרים נכון להיום</string>
+    <string name="list_text4">החזר חודשי ראשון</string>
     <string name="list_btn1">הוסף הצעה</string>
     <string name="list_btn2">קבל המלצה</string>
 
@@ -190,7 +190,7 @@
 
     <string name="menu_sort_1">בנק</string>
     <string name="menu_sort_2">החזר חודשי</string>
-    <string name="menu_sort_3">החזר בתום תקופה</string>
+    <string name="menu_sort_3">סהכ החזרים נכון להיום</string>
     <string name="menu_sort_4">סכום המשכנתא</string>
     <string name="menu_sort_5">שנים</string>
     <string name="menu_sort_6">מספר הצעה</string>
@@ -203,7 +203,7 @@
 
     <!--simulation init-->
     <string name="simulation_add_parameters">אנא הזן פרמטרים במונחים שנתיים לסימולציה</string>
-    <string name="simulation_5_years_average">5 שנים אחרונות</string>
+    <string name="simulation_5_years_average">ממוצע 5 שנים אחרונות</string>
     <string name="simulation_details">מילוי פרטי הסימולציה</string>
     <string name="simulation_calculate">חשב</string>
     <string name="prime_change">שינוי בפריים</string>

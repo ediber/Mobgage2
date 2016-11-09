@@ -70,28 +70,28 @@ public class SimulationInitFragment extends Fragment {
         primeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                primeEdt.setText(primeTxt.getText());
+                primeEdt.setText(withoutPercentage(primeTxt.getText()));
             }
         });
 
         changingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changingEdt.setText(changingTxt.getText());
+                changingEdt.setText(withoutPercentage(changingTxt.getText()));
             }
         });
 
         IndexBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IndexEdt.setText(IndexTxt.getText());
+                IndexEdt.setText(withoutPercentage(IndexTxt.getText()));
             }
         });
 
         maxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                maxEdt.setText(maxTxt.getText());
+                maxEdt.setText(withoutPercentage(maxTxt.getText()));
             }
         });
 
@@ -109,6 +109,10 @@ public class SimulationInitFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private String withoutPercentage(CharSequence text) {
+        return text.toString().substring(0, text.length()-1);
     }
 
 
