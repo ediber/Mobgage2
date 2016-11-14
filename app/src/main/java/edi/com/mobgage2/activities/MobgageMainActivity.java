@@ -228,7 +228,8 @@ public class MobgageMainActivity extends Activity implements OnClickListener {
             case SCREEN_FRIEND_RECOMMENDATION:
                 activeScreen = SCREEN_FRIEND_RECOMMENDATION;
                 ProposalDetailsFragment proposalDetails = new ProposalDetailsFragment();
-                proposalDetails.setReadOnly(true);
+//                proposalDetails.setReadOnly(true);
+                proposalDetails.setReadOnly(false);
                 transaction.replace(R.id.frame, proposalDetails);
                 break;
 

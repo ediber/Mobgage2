@@ -88,9 +88,9 @@ public class ProposalDetailsFragment extends Fragment implements OnClickListener
 
         updateSums();
 
-        if (readOnly) {
+   /*     if (readOnly) {
             view.findViewById(R.id.proposal_buttons_frame).setVisibility(View.GONE);
-        } else {
+        } else {*/
             if (DataManager.getInstance().isInMortgageFlow()) { // my mortgage
                 proposalSaveBtnTV.setText(getString(R.string.proposal_update_my_mortgage));
 
@@ -103,7 +103,7 @@ public class ProposalDetailsFragment extends Fragment implements OnClickListener
                 proposalShareBtn.setOnClickListener(this);
                 proposalChangeBtn.setVisibility(View.GONE);
             }
-        }
+//        }
 
         ListView routesList = (ListView) view.findViewById(R.id.proposal_list);
         data = proposal.getRoutes();
